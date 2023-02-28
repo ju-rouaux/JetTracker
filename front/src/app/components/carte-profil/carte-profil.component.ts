@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./carte-profil.component.css']
 })
 export class CarteProfilComponent {
-    nom : String = "eln";
+    nom : String = "Elon Musk";
     emission : number = 5.5;
     image : String = "../../assets/elon.jpg";
 }
