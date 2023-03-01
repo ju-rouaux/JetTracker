@@ -7,6 +7,7 @@ import { CommentaireComponent } from './components/commentaire/commentaire.compo
 import { BoardingPassComponent } from './components/boarding-pass/boarding-pass.component';
 import { CarteProfilComponent } from './components/carte-profil/carte-profil.component';
 import { ConteneurCarteComponent } from './components/conteneur-carte/conteneur-carte.component';
+import { SelecteurPersonneComponent } from './components/selecteur-personne/selecteur-personne.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ConteneurCarteComponent } from './components/conteneur-carte/conteneur-
     CommentaireComponent,
     BoardingPassComponent,
     CarteProfilComponent,
-    ConteneurCarteComponent
+    ConteneurCarteComponent,
+    SelecteurPersonneComponent
   ],
   imports: [
     BrowserModule,
