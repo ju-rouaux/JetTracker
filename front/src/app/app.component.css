@@ -1,0 +1,11 @@
+header {
+    background-color: #403a60;
+    padding: 8vh 8vh;
+    
+}
+
+#titre-site {
+    text-align: center;
+    color: white;
+    font-size: 4em;
+}

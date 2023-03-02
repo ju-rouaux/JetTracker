@@ -7,3 +7,7 @@
     width: 4rem;
     font-size: 2rem;
   }
+
+body {
+  background-color: #efd485 !important;
+}

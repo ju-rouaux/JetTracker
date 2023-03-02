@@ -1,9 +1,16 @@
-<div class="carte">
-    <div class="conteneur-image">
-        <img src="{{image}}" alt="">
+<div class="container">
+    <div class="row">
+        <h2>Les trois plus gros consommateurs du mois :</h2>
     </div>
-    <div class="texte">
-        <h1 class="nom">{{nom}}</h1>
-        <p class="consommation">{{emission}}gCO2</p>
+    <div class="row">
+        <div *ngFor="let personne of personnes" class="col-xl-4 carte">
+            <div class="conteneur-image">
+                <img src="{{personne.image}}" alt="">
+            </div>
+            <div class="texte">
+                <h1 class="nom">{{personne.nom}}</h1>
+                <p class="consommation">{{personne.emission}}gCO2</p>
+            </div>
+        </div>
     </div>
 </div>
