@@ -1,0 +1,27 @@
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+/>
+
+<div id="map-container">
+  <div id="head">
+    <select name="jet owner" id="jet-owner-select">
+      <option value="">All</option>
+      <option value="Elon-Musk">Elon Musk</option>
+      <option value="Bill-Gates">Bill Gates</option>
+      <option value="Antoine-Daniel">Antoine Daniel</option>
+      <option value="Camille-remouais">Camille Remouais</option>
+      <option value="Bruce-Wayne">Bruce Wayne</option>
+    </select>
+    <p>Moyen de transport :</p>
+    <input type="checkbox" id="voiture-checkbox" name="voiture" checked />
+    <p>Voiture</p>
+
+    <input type="checkbox" id="jet-checkbox" name="jet" checked />
+    <p>Jet</p>
+  </div>
+
+  <div id="map"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
