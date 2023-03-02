@@ -3,12 +3,12 @@
         <h2>Les trois plus gros consommateurs du mois :</h2>
     </div>
     <div class="row">
-        <div *ngFor="let personne of personnes" class="col-xl-4 carte">
+        <div *ngFor="let personne of listePersonne" class="col-xl-4 carte">
             <div class="conteneur-image">
-                <img src="{{personne.image}}" alt="">
+                <img src="{{personne.imageLocation}}" alt="">
             </div>
             <div class="texte">
-                <h1 class="nom">{{personne.nom}}</h1>
+                <h1 class="nom">{{personne.prenom}} {{personne.nom}}</h1>
                 <p class="consommation">{{personne.emission}}gCO2</p>
             </div>
         </div>

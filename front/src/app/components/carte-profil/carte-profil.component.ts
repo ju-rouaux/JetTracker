@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PersonneService, Personne } from 'src/app/services/personne.service';
 
 @Component({
   selector: 'app-carte-profil',
@@ -6,19 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./carte-profil.component.css']
 })
 export class CarteProfilComponent {
-  personnes = [{
-    nom: "Elon Musk",
-    emission: "5.5",
-    image: "../../assets/elon.jpg"
-  },
-  {
-    nom: "Elon Musk",
-    emission: "5.5",
-    image: "../../assets/elon.jpg"
-  },
-  {
-    nom: "Elon Musk",
-    emission: "5.5",
-    image: "../../assets/elon.jpg"
-  }]
+  // Récupérer la liste des personnes
+  listePersonne : Personne[] = this.personneService.getListePersonne();
+
+  constructor(
+    // Initialiser le PersonneService
+    private personneService: PersonneService
+  ) {}
 }
