@@ -1,0 +1,51 @@
+@import "~leaflet/dist/leaflet.css";
+#map {
+  display: flex;
+  width: 50vw;
+  height: 50vh;
+  overflow-x: hidden;
+}
+
+.leaflet-routing-alt {
+  visibility: hidden;
+}
+
+div.leaflet-top.leaflet-right {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+}
+
+.leaflet-control-container .leaflet-routing-container-hide {
+  display: none;
+}
+
+#head {
+  display: inline-flex;
+  text-align: center;
+}
+
+#head > * {
+  margin: auto;
+}
+
+#head > :not(#head :first-child) {
+  margin-left: 20px;
+  text-align: center;
+}
+
+.leaflet-marker-icon {
+  /* background-image: url("https://unpkg.com/leaflet@1.2.0/dist/images/marker-icon-2x.png"); */
+  display: none;
+}
+
+#map-container {
+  background-color: #403a60;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1vh;
+  padding: 1vw;
+  border-radius: 1em;
+  color: white;
+}
