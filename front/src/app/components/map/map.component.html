@@ -13,12 +13,25 @@
       <option value="Camille-remouais">Camille Remouais</option>
       <option value="Bruce-Wayne">Bruce Wayne</option>
     </select>
-    <p>Moyen de transport :</p>
-    <input type="checkbox" id="voiture-checkbox" name="voiture" checked />
-    <p>Voiture</p>
 
-    <input type="checkbox" id="jet-checkbox" name="jet" checked />
-    <p>Jet</p>
+    <p>Moyen de transport :</p>
+
+    <input
+      type="checkbox"
+      id="voiture-checkbox"
+      name="voiture-checkbox"
+      (change)="toggleCheckbox($event)"
+    />
+
+    <label for="jet-checkbox">Voiture</label>
+
+    <input
+      type="checkbox"
+      id="jet-checkbox"
+      name="jet-checkbox"
+      (change)="toggleCheckbox($event)"
+    />
+    <label for="jet-checkbox">Jet</label>
   </div>
 
   <div id="map"></div>
