@@ -8,6 +8,7 @@ import { CommentaireComponent } from './components/commentaire/commentaire.compo
 import { BoardingPassComponent } from './components/boarding-pass/boarding-pass.component';
 import { CarteProfilComponent } from './components/carte-profil/carte-profil.component';
 import { SelecteurPersonneComponent } from './components/selecteur-personne/selecteur-personne.component';
+import { CarrouselComponent } from './components/carrousel/carrousel.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SelecteurPersonneComponent } from './components/selecteur-personne/sele
     CommentaireComponent,
     BoardingPassComponent,
     CarteProfilComponent,
-    SelecteurPersonneComponent
+    SelecteurPersonneComponent,
+    CarrouselComponent
   ],
   imports: [
     BrowserModule,
