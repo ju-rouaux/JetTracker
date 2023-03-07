@@ -8,7 +8,7 @@ import { CommentaireComponent } from './components/commentaire/commentaire.compo
 import { BoardingPassComponent } from './components/boarding-pass/boarding-pass.component';
 import { CarteProfilComponent } from './components/carte-profil/carte-profil.component';
 import { SelecteurPersonneComponent } from './components/selecteur-personne/selecteur-personne.component';
-import { MapComponent } from './components/map/map.component';
+import { CarrouselComponent } from './components/carrousel/carrousel.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { MapComponent } from './components/map/map.component';
     BoardingPassComponent,
     CarteProfilComponent,
     SelecteurPersonneComponent,
-    MapComponent,
+    CarrouselComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
