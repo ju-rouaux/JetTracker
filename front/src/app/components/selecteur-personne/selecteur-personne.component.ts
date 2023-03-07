@@ -20,4 +20,5 @@ export class SelecteurPersonneComponent {
     let id = Number.parseInt(idPersStr);
     console.log(this.listePersonne[id]);
   }
+
 }

@@ -8,6 +8,8 @@ import { CommentaireComponent } from './components/commentaire/commentaire.compo
 import { BoardingPassComponent } from './components/boarding-pass/boarding-pass.component';
 import { CarteProfilComponent } from './components/carte-profil/carte-profil.component';
 import { SelecteurPersonneComponent } from './components/selecteur-personne/selecteur-personne.component';
+import { GraphiqueComponent } from './components/graphique/graphique.component';
+import { CheckboxGraphiqueComponent } from './components/checkbox-graphique/checkbox-graphique.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { SelecteurPersonneComponent } from './components/selecteur-personne/sele
     CommentaireComponent,
     BoardingPassComponent,
     CarteProfilComponent,
-    SelecteurPersonneComponent
+    SelecteurPersonneComponent,
+    GraphiqueComponent,
+    CheckboxGraphiqueComponent
   ],
   imports: [
     BrowserModule,
