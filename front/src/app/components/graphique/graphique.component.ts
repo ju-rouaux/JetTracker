@@ -1,56 +1,82 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import Chart from 'chart.js/auto';
-import {Personne, PersonneService} from "src/app/services/personne.service";
+import {Personne, PersonneService} from 'src/app/services/personne.service';
 
 @Component({
   selector: 'app-graphique',
   templateUrl: './graphique.component.html',
-  styleUrls: ['./graphique.component.css']
+  styleUrls: ['./graphique.component.css'],
 })
-export class GraphiqueComponent {
-  listePersonnes: Personne[] = this.personneService.getListePersonne();
-  public chart: any;
+export class GraphiqueComponent implements OnInit {
+  listePersonnes: Personne[] = [];
 
-  constructor(
-    private personneService: PersonneService) {
+  listePersonnesSelectionnees: Personne[] = [];
+
+  chart: any;
+
+  constructor(private personneService: PersonneService) {
   }
 
   ngOnInit(): void {
+    this.listePersonnes = this.personneService.getListePersonne();
     this.createChart();
+
   }
 
   createChart() {
-
-    this.chart = new Chart("monGraphique", {
-      type: 'bar', //this denotes tha type of chart
-
-      data: {// values on X-Axis
-        labels: this.listePersonnes.map((personne) => personne.prenom + " " + personne.nom),
+    this.chart = new Chart('monGraphique', {
+      type: 'bar',
+      data: {
+        labels: [],
         datasets: [
           {
             label: "Nombre d'heures de vol",
-            data: ['467', '576', '572', '79', '92',
-              '574', '573', '576', '572', '79', '92','574', '573','576', '572', '79', '92','574', '573'],
-            backgroundColor: 'grey'
+            data: [],
+            backgroundColor: 'blue',
           },
           {
-            label: "Distance parcourue",
-            data: ['542', '542', '536', '327', '17',
-              '0.00', '538', '541', '542', '542', '536', '327', '17','542', '542', '536', '327', '17',],
-            backgroundColor: 'limegreen'
+            label: 'Distance parcourue',
+            data: [],
+            backgroundColor: 'limegreen',
           },
           {
-            label: "Emissions de CO2",
-            data: ['542', '542', '536', '327', '17',
-              '0.00', '538', '541', '542', '542', '536', '327', '17','542', '542', '536', '327', '17',],
-            backgroundColor: 'red'
-          }
-        ]
+            label: 'Emissions de CO2',
+            data: [],
+            backgroundColor: 'red',
+          },
+        ],
       },
       options: {
-        aspectRatio: 2.5
-      }
-
+        aspectRatio: 2.5,
+      },
     });
+  }
+
+  onCheckboxChange(event: any, i: number) {
+    if (event.target.checked) {
+      this.listePersonnesSelectionnees.push(this.listePersonnes[i]);
+    } else {
+      const index = this.listePersonnesSelectionnees.indexOf(
+        this.listePersonnes[i]
+      );
+      if (index >= 0) {
+        this.listePersonnesSelectionnees.splice(index, 1);
+      }
+    }
+    this.updateChart();
+  }
+
+  updateChart() {
+    this.chart.data.datasets[0].data = this.listePersonnesSelectionnees.map(
+      (personne) => personne.nbHeuresVol
+    );
+    this.chart.data.datasets[1].data = this.listePersonnesSelectionnees.map(
+      (personne) => personne.distanceParcourue
+    );
+    this.chart.data.datasets[2].data = this.listePersonnesSelectionnees.map(
+      (personne) => personne.emission
+    );
+    this.chart.data.labels = this.listePersonnesSelectionnees.map( (personne) => personne.prenom + ' ' + personne.nom);
+    this.chart.update();
   }
 }

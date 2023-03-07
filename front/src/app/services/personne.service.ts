@@ -26,6 +26,8 @@ export class Personne {
   imageLocation: string;
   // Insérer d'autres données à votre guise
   emission: number; //temporaire
+  nbHeuresVol: number; //temporaire
+  distanceParcourue: number; //temporaire
   immatriculation : Array<String>;
 
 
@@ -37,7 +39,9 @@ const PERSONNES: Personne[] = [
     prenom: "Elon",
     nom: "Musk",
     imageLocation: "/assets/elon.jpg",
-    emission: 5.5,
+    emission: 542.5,
+    nbHeuresVol : 467,
+    distanceParcourue : 542,
     immatriculation : ["N628TS", "N272BG", "N502SX"]
   },
   {
@@ -45,7 +49,9 @@ const PERSONNES: Personne[] = [
     prenom: "Bill",
     nom: "Gates",
     imageLocation: "/assets/bill.jpg",
-    emission: 5.7,
+    emission: 125.7,
+    nbHeuresVol : 576,
+    distanceParcourue : 542,
     immatriculation : ["N194WM", "N887WM"]
   },
   {
@@ -53,7 +59,9 @@ const PERSONNES: Personne[] = [
     prenom: "Michael",
     nom: "Jordan",
     imageLocation: "/assets/micheal.jpg",
-    emission: 5.1,
+    emission: 523.1,
+    nbHeuresVol : 572,
+    distanceParcourue : 536,
     immatriculation : ["N236MJ"]
   },
   {
@@ -61,7 +69,9 @@ const PERSONNES: Personne[] = [
     prenom: "Taylor",
     nom : "Swift",
     imageLocation: "/assets/taylor",
-    emission: 5.1,
+    emission: 15.231,
+    nbHeuresVol : 79,
+    distanceParcourue : 327,
     immatriculation : ["N898TS"]
   },
   {
@@ -69,14 +79,18 @@ const PERSONNES: Personne[] = [
     prenom : "Jim",
     nom : "Carrey",
     imageLocation: "/assets/jim",
-    emission: 5.1,
+    emission: 543.1,
+    nbHeuresVol : 92,
+    distanceParcourue : 17,
     immatriculation : ["N162JC"]
   },{
     id : 5,
     prenom : "Alan",
     nom : "Sugar",
     imageLocation: "/assets/alan",
-    emission: 5.1,
+    emission: 0,
+    nbHeuresVol : 0,
+    distanceParcourue : 0.0,
     immatriculation : ["G-SUGA"]
   },
   {
@@ -84,7 +98,9 @@ const PERSONNES: Personne[] = [
     prenom : "John",
     nom : "Travolta",
     imageLocation: "/assets/john",
-    emission : 5,
+    emission : 532,
+    nbHeuresVol : 574,
+    distanceParcourue : 538,
     immatriculation : ["N707JT"]
 
   },
@@ -93,7 +109,9 @@ const PERSONNES: Personne[] = [
     prenom : "Donald",
     nom : "Trump",
     imageLocation: "/assets/donald",
-    emission : 5,
+    emission : 52,
+    nbHeuresVol : 573,
+    distanceParcourue : 538,
     immatriculation : ["N757AF"]
   },
   {
@@ -101,7 +119,9 @@ const PERSONNES: Personne[] = [
     prenom : "Roman",
     nom : "Abramovich",
     imageLocation: "/assets/roman",
-    emission : 5,
+    emission : 0,
+    nbHeuresVol : 0,
+    distanceParcourue : 0.0,
     immatriculation : ["P4-MES"]
   },
   {
@@ -109,7 +129,9 @@ const PERSONNES: Personne[] = [
     prenom : "Magic",
     nom : "Johnson",
     imageLocation: "/assets/magic",
-    emission : 5,
+    emission : 0,
+    nbHeuresVol : 0,
+    distanceParcourue : 0.0,
     immatriculation : ["N32MJ"]
   },
   {
@@ -117,7 +139,9 @@ const PERSONNES: Personne[] = [
     prenom : "Matt",
     nom : "Damon",
     imageLocation: "/assets/matt",
-    emission : 5,
+    emission : 25,
+    nbHeuresVol : 765,
+    distanceParcourue : 542,
     immatriculation : ["N444WT"]
   },
   {
@@ -125,7 +149,9 @@ const PERSONNES: Personne[] = [
     prenom : "",
     nom : "Windsors",
     imageLocation: "/assets/windosors",
-    emission : 5,
+    emission : 57,
+    nbHeuresVol : 2,
+    distanceParcourue : 100.0,
     immatriculation : ["G-XXEB"]
   },
   {
@@ -133,7 +159,9 @@ const PERSONNES: Personne[] = [
     prenom : "Harrison",
     nom : "Ford",
     imageLocation: "/assets/harrison",
-    emission : 5,
+    emission : 65,
+    nbHeuresVol : 87,
+    distanceParcourue : 542,
     immatriculation : ["LX-DEC"]
   },
   {
@@ -141,7 +169,9 @@ const PERSONNES: Personne[] = [
     prenom : "",
     nom : "Jay-Z",
     imageLocation: "/assets/jayz",
-    emission : 5,
+    emission : 982,
+    nbHeuresVol : 10020,
+    distanceParcourue : 54200,
     immatriculation : ["N444SC"]
   }
 ]

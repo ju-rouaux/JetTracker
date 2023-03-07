@@ -1,9 +1,13 @@
-<div class="graphique">
-  <canvas id="monGraphique">{{ chart }}</canvas>
+<div class="graph-container">
+  <div *ngFor="let personne of listePersonnes; let i = index" class="form-check form-check-inline">
+    <input class="form-check-input" [id]="'inlineCheckbox'+i" type="checkbox" [value]="personne.id"
+           (click)="onCheckboxChange($event, i)">
+    <label class="form-check-label" [for]="'inlineCheckbox'+i">{{ personne.prenom + ' ' + personne.nom }}</label>
+  </div>
+
+
+  <div class="graphique">
+    <canvas id="monGraphique">{{ chart }}</canvas>
+  </div>
 </div>
-<!--
-Avec les personnes a cocher
-Nombre d'heures de vol
-Distance parcourue
-Emission
--->
+

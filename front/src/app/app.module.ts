@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,7 +9,6 @@ import { BoardingPassComponent } from './components/boarding-pass/boarding-pass.
 import { CarteProfilComponent } from './components/carte-profil/carte-profil.component';
 import { SelecteurPersonneComponent } from './components/selecteur-personne/selecteur-personne.component';
 import { GraphiqueComponent } from './components/graphique/graphique.component';
-import { CheckboxGraphiqueComponent } from './components/checkbox-graphique/checkbox-graphique.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +17,7 @@ import { CheckboxGraphiqueComponent } from './components/checkbox-graphique/chec
     BoardingPassComponent,
     CarteProfilComponent,
     SelecteurPersonneComponent,
-    GraphiqueComponent,
-    CheckboxGraphiqueComponent
+    GraphiqueComponent
   ],
   imports: [
     BrowserModule,
