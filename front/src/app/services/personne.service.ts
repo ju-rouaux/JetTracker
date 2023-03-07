@@ -1,17 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class PersonneService {
+export class PersonneService implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {
+    this.getListePersonne();
+  }
 
   /**
    * Retourne la liste de toutes les personnes.
    * @returns la liste de toutes les personnes.
    */
-  getListePersonne() : Personne[] {
+  getListePersonne(): Personne[] {
     return PERSONNES;
   }
 }
@@ -24,30 +27,33 @@ export class Personne {
   prenom: string;
   nom: string;
   imageLocation: string;
+  // forbes_rank: number;
   // Insérer d'autres données à votre guise
   emission: number; //temporaire
 }
 
+// const PERSONNES: Personne[] = [];
+
 const PERSONNES: Personne[] = [
   {
     id: 0,
-    prenom: "Elon",
-    nom: "Musk",
-    imageLocation: "/assets/elon.jpg",
-    emission: 5.5
+    prenom: 'Elon',
+    nom: 'Musk',
+    imageLocation: '/assets/elon.jpg',
+    emission: 5.5,
   },
   {
     id: 1,
-    prenom: "Jean",
-    nom: "Françoise",
-    imageLocation: "/assets/elon.jpg",
-    emission: 5.7
+    prenom: 'Jean',
+    nom: 'Françoise',
+    imageLocation: '/assets/elon.jpg',
+    emission: 5.7,
   },
   {
     id: 2,
-    prenom: "Marie",
-    nom: "Serge",
-    imageLocation: "/assets/elon.jpg",
-    emission: 5.1
-  }
-]
+    prenom: 'Marie',
+    nom: 'Serge',
+    imageLocation: '/assets/elon.jpg',
+    emission: 5.1,
+  },
+];
