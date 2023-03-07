@@ -9,6 +9,7 @@ import { CarteProfilComponent } from './components/carte-profil/carte-profil.com
 import { SelecteurPersonneComponent } from './components/selecteur-personne/selecteur-personne.component';
 import { CarrouselComponent } from './components/carrousel/carrousel.component';
 import { MapComponent } from './components/map/map.component';
+import {GraphiqueComponent} from "./components/graphique/graphique.component";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { MapComponent } from './components/map/map.component';
     SelecteurPersonneComponent,
     CarrouselComponent,
     MapComponent,
+    GraphiqueComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
