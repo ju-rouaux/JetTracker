@@ -49,3 +49,8 @@ div.leaflet-top.leaflet-right {
   border-radius: 1em;
   color: rgb(0, 0, 0);
 }
+
+#jet-owner-select {
+  border-radius: 0.5em;
+  width: 20vw;
+}

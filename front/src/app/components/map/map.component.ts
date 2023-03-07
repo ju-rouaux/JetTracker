@@ -46,110 +46,148 @@
 //      .addTo( map );
 // }
 
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { icon, Marker } from 'leaflet';
 
 import 'leaflet-routing-machine';
+import 'leaflet.geodesic';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
 })
-export class MapComponent implements OnInit {
-  ngOnInit(): void {
-    let depart_coord: [number, number] = [48.2, 2.3522];
-    let end_coord: [number, number] = [51.5074, -0.1278];
+export class MapComponent implements AfterViewInit {
+  private map: L.Map;
+  private departure_coord: L.Marker;
+  private arrival_coord: L.Marker;
+  private geodesic_path: L.Geodesic;
+  private display_jet: boolean;
+  private display_car: boolean;
 
-    const iconRetinaUrl =
-      'https://unpkg.com/leaflet@1.2.0/dist/images/marker-icon-2x.png';
-    const iconUrl = 'assets/marker-icon.png';
-    const shadowUrl = 'assets/marker-shadow.png';
+  private initMap(): void {
+    this.map = L.map('map', {
+      zoom: 0,
+    });
+
+    const tiles = L.tileLayer(
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {
+        maxZoom: 18,
+        minZoom: 3,
+      }
+    );
+
     const iconDefault = icon({
-      iconRetinaUrl,
-      iconUrl,
-      shadowUrl,
+      iconRetinaUrl:
+        'https://unpkg.com/leaflet@1.2.0/dist/images/marker-icon-2x.png',
+      iconUrl: '',
+      shadowUrl: '',
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34],
       tooltipAnchor: [16, -28],
       shadowSize: [41, 41],
     });
+
     Marker.prototype.options.icon = iconDefault;
 
-    // v0(a, b);
-    // function v0(depart_coord: [number, number], end_coord: [number, number]) {
-    const mymap = L.map('map').setView([48.8566, 2.3522], 13);
-    const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    const attribution =
-      'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
-    const tiles = L.tileLayer(tileUrl /*{ attribution }*/);
-    tiles.addTo(mymap);
+    tiles.addTo(this.map);
+  }
 
-    var greenIcon = L.icon({
-      iconUrl: 'https://leafletjs.com/examples/custom-icons/leaf-green.png',
-      shadowUrl: 'https://leafletjs.com/examples/custom-icons/leaf-green.png',
+  public setDeparture(lat: number, lng: number): void {
+    this.departure_coord = L.marker([lat, lng], { draggable: false }).addTo(
+      this.map
+    );
+  }
 
-      iconSize: [38, 95], // size of the icon
-      shadowSize: [50, 64], // size of the shadow
-      iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-      shadowAnchor: [4, 62], // the same for the shadow
-      popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
-    });
+  public setArrival(lat: number, lng: number): void {
+    this.arrival_coord = L.marker([lat, lng], { draggable: false }).addTo(
+      this.map
+    );
+  }
 
-    var control = L.Routing.control({
+  public centerView(marker: L.Marker): void {
+    this.map.setView(marker.getLatLng(), 5);
+  }
+
+  public displayJet(): void {
+    this.geodesic_path = new L.Geodesic(
+      [this.departure_coord.getLatLng(), this.arrival_coord.getLatLng()],
+      {
+        weight: 5,
+        opacity: 0.5,
+        color: 'red',
+        steps: 4,
+      }
+    ).addTo(this.map);
+    //alert('ok');
+  }
+
+  public displayCar(): void {
+    L.Routing.control({
       waypoints: [
-        L.latLng(depart_coord), // Paris
-        L.latLng(end_coord), // Londres
+        this.departure_coord.getLatLng(),
+        this.arrival_coord.getLatLng(),
       ],
-    }).addTo(mymap);
+      routeWhileDragging: false,
+      addWaypoints: false,
+    }).addTo(this.map);
 
-    control.hide();
+    document.getElementsByClassName('leaflet-top leaflet-right')[0].remove();
+  }
 
-    // var greenIcon = L.icon({
-    //   iconUrl: 'leaf-green.png',
-    //   shadowUrl: 'leaf-shadow.png',
+  public toggleCheckbox(event: any) {
+    if (event.target.checked) {
+      // Si la checkbox est coché
+      switch (event.target.id) {
+        case 'voiture-checkbox':
+          this.displayCar();
+          this.display_car = true;
+          break;
+        case 'jet-checkbox':
+          this.displayJet();
+          this.display_jet = true;
+          break;
+      }
+    } else {
+      // Si la checkbox est décoché
+      switch (event.target.id) {
+        case 'voiture-checkbox':
+          //this.hideCar();
+          this.display_car = false;
+          this.map.remove();
+          this.initAll();
+          if (this.display_jet) this.displayJet();
+          break;
+        case 'jet-checkbox':
+          this.display_jet = false;
+          this.map.remove();
+          this.initAll();
+          if (this.display_car) this.displayCar();
+          break;
+      }
+    }
+    // do something else based on the checkbox status
+  }
 
-    //   iconSize: [38, 95], // size of the icon
-    //   shadowSize: [50, 64], // size of the shadow
-    //   iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-    //   shadowAnchor: [4, 62], // the same for the shadow
-    //   popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
-    // });
+  constructor() {}
 
-    // let iconOptions = {
-    //   title: 'company name',
-    //   draggable: true,
-    //   icon: greenIcon,
-    // };
-    document.getElementById('voiture-checkbox')?.addEventListener(
-      'click',
-      () => {
-        if (
-          document.getElementById('voiture-checkbox')?.getAttribute('checked')
-        ) {
-          var polygon = L.polygon([depart_coord, end_coord]).addTo(mymap);
-          document.getElementById('jet-checkbox')?.removeAttribute('checked');
-          alert('voiture checked');
-        }
-      },
-      false
-    );
+  private initAll(): void {
+    this.initMap();
+    this.setDeparture(48.2, 2.3522); // Paris
+    //this.setArrival(51.5074, -0.1278); // Londre
+    this.setArrival(40.712784, -74.005941); // New York
+    this.centerView(this.departure_coord);
+  }
 
-    document.getElementById('jet-checkbox')?.addEventListener(
-      'click',
-      () => {
-        var polygon = L.polygon([depart_coord, end_coord]).addTo(mymap);
-        // document.getElementById('voiture-checkbox')?.removeAttribute('checked');
-        //document.getElementById('voiture-checkbox')?.checked = false
-      },
-      false
-    );
-
-    // }
-
-    // Object.values(document.getElementsByClassName("leaflet-marker-icon")).forEach(element => {
-    //   element.src
-    // });
+  ngAfterViewInit(): void {
+    this.display_car = false;
+    this.display_jet = false;
+    this.initAll();
+    this.centerView(this.departure_coord);
+    // this.displayJet();
+    // this.displayCar();
   }
 }
