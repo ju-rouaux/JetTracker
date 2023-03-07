@@ -1,12 +1,80 @@
-header {
-    background-color: #e5e1e6;
+@font-face {
+    font-family: 'Louis George Cafe Light';
+    src: url("../assets/fonts/Louis George Cafe/Louis George Cafe Light.ttf");
+}
+
+@font-face {
+    font-family: 'Louis George Cafe';
+    src: url("../assets/fonts/Louis George Cafe/Louis George Cafe.ttf");
+}
+
+@font-face {
+    font-family: 'Louis George Cafe Bold';
+    src: url("../assets/fonts/Louis George Cafe/Louis George Cafe Bold.ttf");
+}
+
+
+@font-face {
+    font-family: 'Amaranth';
+    src: url("../assets/fonts/Amaranth/Amaranth-Regular.ttf");
+}
+
+@font-face {
+    font-family: 'Amaranth Bold';
+    src: url("../assets/fonts/Amaranth/Amaranth-Bold.ttf");
+}
+
+@font-face {
+    font-family: 'Gilroy Bold';
+    src: url("../assets/fonts/Gilroy/Gilroy-ExtraBold.otf");
+}
+
+@font-face {
+    font-family: 'Gilroy Light';
+    src: url("../assets/fonts/Gilroy/Gilroy-Light.otf");
+}
+
+
+#bg-image {
+    background-image: url("../assets/sky.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    /* border: 1px solid yellow;
+    filter: blur(1px); */
+
+}
+
+#presentation {
+
     padding: 8vh 8vh;
-    
+    position: relative;
 }
 
 #titre-site {
     text-align: center;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-size: 4em;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Gilroy Bold';
+    /* font-family: 'Amaranth Bold'; */
+}
+
+header {
+    width: 100%;
+    /* border: 1px solid red; */
+}
+
+p {
+    text-align: center;
+    color: white;
+    font-size: 2em;
+    font-family: 'Amaranth'
 }
