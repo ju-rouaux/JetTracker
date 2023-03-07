@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +8,7 @@ import { CommentaireComponent } from './components/commentaire/commentaire.compo
 import { BoardingPassComponent } from './components/boarding-pass/boarding-pass.component';
 import { CarteProfilComponent } from './components/carte-profil/carte-profil.component';
 import { SelecteurPersonneComponent } from './components/selecteur-personne/selecteur-personne.component';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -15,14 +16,11 @@ import { SelecteurPersonneComponent } from './components/selecteur-personne/sele
     CommentaireComponent,
     BoardingPassComponent,
     CarteProfilComponent,
-    SelecteurPersonneComponent
+    SelecteurPersonneComponent,
+    MapComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
