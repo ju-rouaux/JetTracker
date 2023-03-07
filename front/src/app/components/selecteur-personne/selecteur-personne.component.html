@@ -1,3 +1,5 @@
-<select class="form-select w-75" #selecteur (change)="onSelected(selecteur.value)">
-    <option *ngFor="let personne of listePersonne" [value]="personne.id">{{personne.prenom}} {{personne.nom}}</option>
+<select class="form-select" #selecteur (change)="onSelected(selecteur.value)">
+  <option *ngFor="let personne of listePersonne" [value]="personne.id">
+    {{ personne.prenom }} {{ personne.nom }}
+  </option>
 </select>

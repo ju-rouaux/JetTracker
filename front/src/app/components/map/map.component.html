@@ -5,14 +5,7 @@
 
 <div id="map-container">
   <div id="head">
-    <select name="jet owner" id="jet-owner-select">
-      <option value="">All</option>
-      <option value="Elon-Musk">Elon Musk</option>
-      <option value="Bill-Gates">Bill Gates</option>
-      <option value="Antoine-Daniel">Antoine Daniel</option>
-      <option value="Camille-remouais">Camille Remouais</option>
-      <option value="Bruce-Wayne">Bruce Wayne</option>
-    </select>
+    <app-selecteur-personne></app-selecteur-personne>
 
     <p>Moyen de transport :</p>
 
@@ -30,6 +23,7 @@
       id="jet-checkbox"
       name="jet-checkbox"
       (change)="toggleCheckbox($event)"
+      checked
     />
     <label for="jet-checkbox">Jet</label>
   </div>

@@ -1,51 +1,3 @@
-// import { Component } from '@angular/core';
-// import * as L from '@asymmetrik/ngx-leaflet';
-// @Component({
-//   selector: 'app-map',
-//   templateUrl: './map.component.html',
-//   styleUrls: ['./map.component.css']
-// })
-// export class MapComponent {
-//   var map = L.map( 'map' /* the id of the tag used for map injection */ );
-//     map.setView( [43.7991 /*latitude*/, 6.72545 /*longitude*/], 12 /*zoom*/ );
-
-//     // --- We add a layer based on OpenStreetMap ---
-//     L.tileLayer( 'http://tile.openstreetmap.org/{z}/{x}/{y}.png' ).addTo(map);   // Base Map
-
-//     // --- We add a circle to the map ---
-//     var circle = L.circle( [ 43.7991, 6.72545 ] , {
-//         color: 'red',
-//         fillColor: '#f03',
-//         fillOpacity: 0.5,
-//         radius: 200
-//     }).addTo(map);
-
-//     // --- We add a polygon to the map ---
-//     var polygon = L.polygon([
-//         [ 43.7949098,6.7109003 ],
-//         [ 43.773007,6.7012349 ],
-//         [ 43.7779801,6.7306691 ]
-//     ]).addTo(map);
-
-//     // --- We add a marker, with events, to the map ---
-//     var marker = L.marker( [ 43.7991, 6.72545 ] )
-//                   .bindPopup( "Infini Software" )
-//                   .addTo( map );
-
-//     // --- We add a new layer to the map that contains some markers ---
-//     var seranon = L.marker( [ 43.773007,6.7012349 ] )
-//                    .bindPopup( 'Village de Seranon' ),
-//     caille      = L.marker( [ 43.7779801,6.7306691 ] )
-//                    .bindPopup( 'Village de Caille' ),
-//     valderoure  = L.marker( [ 43.7949098,6.7109003 ] )
-//                    .bindPopup( 'Village de Valderoure' ),
-//     laFerriere  = L.marker( [ 43.7990248,6.7306592 ] )
-//                    .bindPopup( 'Village de La Ferriere' );
-
-//     L.layerGroup([seranon, caille, valderoure, laFerriere])
-//      .addTo( map );
-// }
-
 import { Component, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { icon, Marker } from 'leaflet';
@@ -180,11 +132,15 @@ export class MapComponent implements AfterViewInit {
     //this.setArrival(51.5074, -0.1278); // Londre
     this.setArrival(40.712784, -74.005941); // New York
     this.centerView(this.departure_coord);
+
+    if (this.display_jet) this.displayJet();
+
+    if (this.display_car) this.displayCar();
   }
 
   ngAfterViewInit(): void {
     this.display_car = false;
-    this.display_jet = false;
+    this.display_jet = true;
     this.initAll();
     this.centerView(this.departure_coord);
     // this.displayJet();
