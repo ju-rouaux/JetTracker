@@ -1,4 +1,45 @@
-body{
+#main {
+    position: relative;
+
+    width: 50%;
+    aspect-ratio: 2/1;
+    margin: auto;
+    margin-bottom: 6vh;
+
+    border-radius: 3vh;
+    border: 1px solid yellow;
+    background-color: white;
+    overflow: hidden;
+    z-index: 0;
+}
+
+#barre {
+    position: relative;
+    height: 15%;
+
+    background-color: orange;
+}
+
+#fond {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/World_map_blank_gmt.svg/1280px-World_map_blank_gmt.svg.png);
+    background-size: cover;
+    z-index: 1;
+}
+
+#contenu {
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+
+
+
+/* body{
     background-color: #777;
     font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
 }
@@ -232,4 +273,4 @@ body{
     border-radius: 50%;
     background-color: #fff;
     display: inline-block;
-}
+} */
