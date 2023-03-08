@@ -1,7 +1,8 @@
 @import "~leaflet/dist/leaflet.css";
 #map {
   display: flex;
-  width: 50vw;
+  width: 98%;
+  margin: auto;
   height: 50vh;
   overflow-x: hidden;
   margin-top: 1%;
@@ -24,6 +25,7 @@ div.leaflet-top.leaflet-right {
 #head {
   display: inline-flex;
   text-align: center;
+  margin-top: 1%;
 }
 
 #head > * {
@@ -41,14 +43,8 @@ div.leaflet-top.leaflet-right {
 }
 
 #map-container {
-  background-color: #3c1aff;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 1vh;
-  padding: 1vw;
-  border-radius: 1em;
-  color: rgb(0, 0, 0);
+  border-top-left-radius: 2em;
+  border-top-right-radius: 2em;
 }
 
 #jet-owner-select {

@@ -34,7 +34,7 @@ export class MapComponent implements AfterViewInit {
     const iconDefault = icon({
       iconRetinaUrl:
         'https://unpkg.com/leaflet@1.2.0/dist/images/marker-icon-2x.png',
-      iconUrl: '',
+      iconUrl: 'https://unpkg.com/leaflet@1.2.0/dist/images/marker-icon-2x.png',
       shadowUrl: '',
       iconSize: [25, 41],
       iconAnchor: [12, 41],
