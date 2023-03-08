@@ -1,0 +1,9 @@
+.graph-container {
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+  }
+  
+
+.graph-container > * {
+    margin: auto;
+  }
