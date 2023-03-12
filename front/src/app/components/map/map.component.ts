@@ -4,6 +4,7 @@ import { icon, Marker } from 'leaflet';
 
 import 'leaflet-routing-machine';
 import 'leaflet.geodesic';
+import { GeodesicLine } from 'leaflet.geodesic';
 
 @Component({
   selector: 'app-map',
@@ -60,68 +61,106 @@ export class MapComponent implements AfterViewInit {
     );
   }
 
+  // Centre la vu de la carte sur un marker TODO a revoir pour utiliser peut-etre des coordonnées
   public centerView(marker: L.Marker): void {
     this.map.setView(marker.getLatLng(), 5);
   }
 
-  public displayJet(): void {
-    this.geodesic_path = new L.Geodesic(
-      [this.departure_coord.getLatLng(), this.arrival_coord.getLatLng()],
+  // Créer un nouveau trajet en Jet a partir de deux marker (départ et arrivée)
+  public addJetPath(
+    departure_coord: L.Marker,
+    arrival_coord: L.Marker
+  ): L.Geodesic {
+    return new L.Geodesic(
+      [departure_coord.getLatLng(), arrival_coord.getLatLng()],
       {
         weight: 5,
         opacity: 0.5,
         color: 'red',
         steps: 4,
       }
-    ).addTo(this.map);
-    //alert('ok');
+    );
   }
 
-  public displayCar(): void {
-    L.Routing.control({
-      waypoints: [
-        this.departure_coord.getLatLng(),
-        this.arrival_coord.getLatLng(),
-      ],
+  // Créer un nouveau trajet en Voiture a partir de deux marker (départ et arrivée)
+  public addCarPath(
+    departure_coord: L.Marker,
+    arrival_coord: L.Marker
+  ): L.Routing.Control {
+    return L.Routing.control({
+      waypoints: [departure_coord.getLatLng(), arrival_coord.getLatLng()],
       routeWhileDragging: false,
       addWaypoints: false,
-    }).addTo(this.map);
-
-    document.getElementsByClassName('leaflet-top leaflet-right')[0].remove();
+    });
   }
 
+  // Méthode appelé quand une checkbox change d'état
   public toggleCheckbox(event: any) {
-    if (event.target.checked) {
-      // Si la checkbox est coché
-      switch (event.target.id) {
-        case 'voiture-checkbox':
-          this.displayCar();
-          this.display_car = true;
-          break;
-        case 'jet-checkbox':
-          this.displayJet();
-          this.display_jet = true;
-          break;
-      }
-    } else {
-      // Si la checkbox est décoché
-      switch (event.target.id) {
-        case 'voiture-checkbox':
-          //this.hideCar();
-          this.display_car = false;
-          this.map.remove();
-          this.initAll();
-          if (this.display_jet) this.displayJet();
-          break;
-        case 'jet-checkbox':
-          this.display_jet = false;
-          this.map.remove();
-          this.initAll();
-          if (this.display_car) this.displayCar();
-          break;
-      }
-    }
-    // do something else based on the checkbox status
+    //   if (event.target.checked) {
+    //     // Si la checkbox est coché
+    //     switch (event.target.id) {
+    //       case 'voiture-checkbox':
+    //         //this.displayCar();
+    //         this.display_car = true;
+    //         break;
+    //       case 'jet-checkbox':
+    //         //this.displayJet();
+    //         this.display_jet = true;
+    //         break;
+    //     }
+    //   } else {
+    //     // Si la checkbox est décoché
+    //     switch (event.target.id) {
+    //       case 'voiture-checkbox':
+    //         //this.hideCar();
+    //         this.display_car = false;
+    //         this.map.remove();
+    //         this.initAll();
+    //         //if (this.display_jet) this.displayJet();
+    //         break;
+    //       case 'jet-checkbox':
+    //         this.display_jet = false;
+    //         this.map.remove();
+    //         this.initAll();
+    //         //if (this.display_car) this.displayCar();
+    //         break;
+    //     }
+    //   }
+    //   // do something else based on the checkbox status
+  }
+
+  // Créer un nouveau trajet sous forme de deux marker
+  // a partir de coordonnées passé en paramettre
+  public newPath(
+    departure_lat: number,
+    departure_lng: number,
+    arrival_lat: number,
+    arrival_lng: number
+  ): L.Marker[] {
+    let markers: L.Marker[] = [];
+
+    markers.push(
+      L.marker([departure_lat, departure_lng], { draggable: false }).addTo(
+        this.map
+      )
+    );
+
+    markers.push(
+      L.marker([arrival_lat, arrival_lng], { draggable: false }).addTo(this.map)
+    );
+
+    return markers;
+  }
+
+  // Affiche tout les trajet passé en paramettre
+  private displayPaths(PathsArray: (L.Routing.Control | L.Geodesic)[]): void {
+    PathsArray.forEach((path) => {
+      path.addTo(this.map);
+      if (path instanceof L.Routing.Control)
+        document
+          .getElementsByClassName('leaflet-top leaflet-right')[0]
+          .remove();
+    });
   }
 
   constructor() {}
@@ -133,17 +172,29 @@ export class MapComponent implements AfterViewInit {
     this.setArrival(40.712784, -74.005941); // New York
     this.centerView(this.departure_coord);
 
-    if (this.display_jet) this.displayJet();
+    // if (this.display_jet) this.displayJet();
 
-    if (this.display_car) this.displayCar();
+    // if (this.display_car) this.displayCar();
   }
 
   ngAfterViewInit(): void {
     this.display_car = false;
     this.display_jet = true;
-    this.initAll();
-    this.centerView(this.departure_coord);
-    // this.displayJet();
-    // this.displayCar();
+
+    this.initMap();
+
+    let Paths: (L.Routing.Control | GeodesicLine)[] = [];
+    let Markers = [];
+
+    Markers.push(this.newPath(48.2, 2.3522, 40.712784, -74.005941));
+
+    Markers.push(this.newPath(42.2, 1.3522, 40.712784, -34.005941));
+
+    Markers.forEach((marker) => {
+      Paths.push(this.addCarPath(marker[0], marker[1]));
+      Paths.push(this.addJetPath(marker[0], marker[1]));
+    });
+
+    this.displayPaths(Paths);
   }
 }
