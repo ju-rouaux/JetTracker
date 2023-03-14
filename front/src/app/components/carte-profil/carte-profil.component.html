@@ -3,7 +3,7 @@
     <h2>Les trois plus gros consommateurs du mois :</h2>
   </div>
   <div class="row">
-    <div *ngFor="let personne of listePersonne | slice :0:3 " class="col-xl-4 carte">
+    <div *ngFor="let personne of listePersonne | slice :0:3 " class="col-xl-4 col-sm-4 col-xs-4 carte">
       <div class="conteneur-image">
         <img src="{{personne.imageLocation}}" alt="">
       </div>
