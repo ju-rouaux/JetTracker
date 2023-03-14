@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'boarding-pass',
@@ -6,14 +6,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./boarding-pass.component.css']
 })
 export class BoardingPassComponent {
+    @Input()
+    nom : String = "Unknown";
 
-    num : number[];
-    test = "07:50 AM\n(date)";
-    constructor() {
-        this.num = [];
+    @Input()
+    immatriculation : String = "XXXXXX";
 
-        for(let i = 1; i <= 10; i++) {
-            this.num.push(i);
-        }
+    @Input()
+    depart = {
+        aeroport : String,
+        heure : String,
+        date : String
+    }
+
+    @Input()
+    arrivee = {
+        aeroport : String,
+        heure : String,
+        date : String
     }
 }
