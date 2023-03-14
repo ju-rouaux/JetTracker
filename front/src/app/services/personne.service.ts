@@ -22,11 +22,17 @@ export class PersonneService {
       for (const personneKey of Object.keys(jsonData)) {
         const data = jsonData[personneKey];
         const jets: Jet[] = [];
+        let distanceParcourue = 0; // initialize total distance traveled to 0
         if (data.jets) {
           for (const jetKey of Object.keys(data.jets)) {
             const jetData = data.jets[jetKey];
             for (const innerJetKey of Object.keys(jetData.jet)) {
               const jet = jetData.jet[innerJetKey];
+              const greatCircleDistance = jet.greatCircleDistance;
+              if (greatCircleDistance && greatCircleDistance.km) {
+                // add great circle distance to total distance traveled
+                distanceParcourue += greatCircleDistance.km;
+              }
               jets.push(jet);
             }
           }
@@ -41,12 +47,13 @@ export class PersonneService {
           data.imageLocation,
           data.emission,
           data.nbHeuresVol,
-          data.distanceParcourue,
+          distanceParcourue,
           data.immatriculation,
           jets
         );
         personnes.push(personne);
       }
+
 
       return personnes;
     } catch (error) {
@@ -62,70 +69,6 @@ interface Jet {
   model: string | null;
 }
 
-interface Flight {
-  aircraft: {
-    modeS: string;
-    model: string;
-    reg: string;
-  };
-  arrival: {
-    location: {
-      lat: number;
-      lon: number;
-    };
-  };
-  departure: {
-    location: {
-      lat: number;
-      lon: number;
-    };
-    scheduledTimeLocal: string;
-  };
-  greatCircleDistance: {
-    km: number;
-  };
-}
-
-interface Jets {
-  [key: string]: {
-    jet: {
-      [key: string]: Jet;
-    };
-  };
-}
-
-interface Flights {
-  [key: string]: {
-    aircraft: {
-      modeS: string;
-      model: string;
-      reg: string;
-    };
-    arrival: {
-      location: {
-        lat: number;
-        lon: number;
-      };
-    };
-    departure: {
-      location: {
-        lat: number;
-        lon: number;
-      };
-      scheduledTimeLocal: string;
-    };
-    greatCircleDistance: {
-      km: number;
-    };
-  };
-}
-
-interface People {
-  [key: string]: {
-    jets?: Jets;
-    flights?: Flights;
-  };
-}
 
 /**
  * Contient toutes les données d'une personne.
