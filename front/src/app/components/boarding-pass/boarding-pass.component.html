@@ -1,20 +1,20 @@
 <div id="main">
     <div id="barre">
-        <h2 id="nom">Elon Musk</h2>
+        <h2 id="nom">{{nom}}</h2>
     </div>
     <div id="contenu">
         <div id="left">
             <div id="from">
-                <span>CDG<br>7:30AM<br>07/03/23</span>
+                <span>{{depart.aeroport}}<br>{{depart.heure}}<br>{{depart.date}}</span>
             </div>
             <div id="to">
-                <span>CDG<br>7:30AM<br>07/03/23</span>
+                <span>{{arrivee.aeroport}}<br>{{arrivee.heure}}<br>{{arrivee.date}}</span>
             </div>
         </div>
         <div id="right">
             <div id="vol">
                 <h2>Vol</h2>
-                <p>UIFHQUS</p>
+                <p>{{immatriculation}}</p>
             </div>
             <img src="/assets/img/logo.svg" alt="">
         </div>

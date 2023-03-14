@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PersonneService, Personne } from 'src/app/services/personne.service';
 
 @Component({
   selector: 'app-carrousel',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./carrousel.component.css']
 })
 export class CarrouselComponent {
-
+  
 }
