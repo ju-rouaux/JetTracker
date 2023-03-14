@@ -20,6 +20,7 @@ export class GraphiqueComponent implements OnInit {
   async ngOnInit() {
     try {
       this.listePersonnes = await this.personneService.getListePersonne();
+      console.log("personnes : "+ this.listePersonnes.map(personne => personne.nom));
       this.createChart();
     } catch (error) {
       console.error(error);
