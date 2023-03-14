@@ -8,12 +8,16 @@ import { PersonneService, Personne } from 'src/app/services/personne.service';
 })
 export class SelecteurPersonneComponent {
   // Récupérer la liste des personnes
-  listePersonne : Personne[] = this.personneService.getListePersonne();
+  listePersonne : Personne[] = [];
 
   constructor(
     // Initialiser le PersonneService
     private personneService: PersonneService
   ) {}
+
+  async ngOnInit() {
+    this.listePersonne = await this.personneService.getListePersonne();
+  }
 
   // Lorsqu'un élément de la liste est sélectionné
   onSelected(idPersStr : string) {

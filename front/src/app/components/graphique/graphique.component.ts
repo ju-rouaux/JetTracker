@@ -17,10 +17,13 @@ export class GraphiqueComponent implements OnInit {
   constructor(private personneService: PersonneService) {
   }
 
-  ngOnInit(): void {
-    this.listePersonnes = this.personneService.getListePersonne();
-    this.createChart();
-
+  async ngOnInit() {
+    try {
+      this.listePersonnes = await this.personneService.getListePersonne();
+      this.createChart();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   createChart() {

@@ -7,11 +7,19 @@ import { PersonneService, Personne } from 'src/app/services/personne.service';
   styleUrls: ['./carte-profil.component.css']
 })
 export class CarteProfilComponent {
-  // Récupérer la liste des personnes
-  listePersonne : Personne[] = this.personneService.getListePersonne();
 
+  listePersonne: Personne[] = [];
+
+  // Récupérer la liste des personnes
+    async chargerListePersonne(){
+    this.listePersonne = await this.personneService.getListePersonne();
+  }
   constructor(
     // Initialiser le PersonneService
     private personneService: PersonneService
   ) {}
+
+  async ngOnInit() {
+    await this.chargerListePersonne();
+  }
 }

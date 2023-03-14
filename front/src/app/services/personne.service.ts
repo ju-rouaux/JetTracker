@@ -5,32 +5,135 @@ import { Injectable } from '@angular/core';
 })
 export class PersonneService {
 
-  constructor() { }
+  constructor() {}
 
   /**
    * Retourne la liste de toutes les personnes.
    * @returns la liste de toutes les personnes.
    */
-  getListePersonne() : Personne[] {
-    return PERSONNES;
+  async getListePersonne(): Promise<Personne[]> {
+    try {
+      // Simulate receiving a JSON file from the backend
+      const response = await fetch('./assets/parse.json');
+      const jsonData = await response.json();
+
+      // Parse the JSON into Personne objects
+      const personnes: Personne[] = jsonData.map((data: any) => {
+        const jets: Jet[] = [];
+        if (data.jets) {
+          for (const key in data.jets) {
+            const jetData = data.jets[key];
+            for (const jetKey in jetData.jet) {
+              const jet = jetData.jet[jetKey];
+              jets.push(jet);
+            }
+          }
+        }
+        return new Personne(
+          data.id,
+          data.prenom,
+          data.nom,
+          data.imageLocation,
+          data.emission,
+          data.nbHeuresVol,
+          data.distanceParcourue,
+          data.immatriculation,
+        );
+      });
+
+      return personnes;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
+}
+
+interface Jet {
+  max_speed: string | null;
+  model: string | null;
+}
+
+interface Flight {
+  aircraft: {
+    modeS: string;
+    model: string;
+    reg: string;
+  };
+  arrival: {
+    location: {
+      lat: number;
+      lon: number;
+    };
+  };
+  departure: {
+    location: {
+      lat: number;
+      lon: number;
+    };
+    scheduledTimeLocal: string;
+  };
+  greatCircleDistance: {
+    km: number;
+  };
+}
+
+interface Jets {
+  [key: string]: {
+    jet: {
+      [key: string]: Jet;
+    };
+  };
+}
+
+interface Flights {
+  [key: string]: {
+    aircraft: {
+      modeS: string;
+      model: string;
+      reg: string;
+    };
+    arrival: {
+      location: {
+        lat: number;
+        lon: number;
+      };
+    };
+    departure: {
+      location: {
+        lat: number;
+        lon: number;
+      };
+      scheduledTimeLocal: string;
+    };
+    greatCircleDistance: {
+      km: number;
+    };
+  };
+}
+
+interface People {
+  [key: string]: {
+    jets?: Jets;
+    flights?: Flights;
+  };
 }
 
 /**
  * Contient toutes les données d'une personne.
  */
 export class Personne {
-  id: number;
-  prenom: string;
-  nom: string;
-  imageLocation: string;
-  // Insérer d'autres données à votre guise
-  emission: number; //temporaire
-  nbHeuresVol: number; //temporaire
-  distanceParcourue: number; //temporaire
-  immatriculation : Array<String>;
 
-
+  constructor(
+    public id: number,
+    public prenom: string,
+    public nom: string,
+    public imageLocation: string,
+    public emission: number,
+    public nbHeuresVol: number,
+    public distanceParcourue: number,
+    public immatriculation: string[]
+  ) {}
 }
 
 const PERSONNES: Personne[] = [
@@ -40,9 +143,9 @@ const PERSONNES: Personne[] = [
     nom: "Musk",
     imageLocation: "/assets/elon.jpg",
     emission: 542.5,
-    nbHeuresVol : 467,
-    distanceParcourue : 542,
-    immatriculation : ["N628TS", "N272BG", "N502SX"]
+    nbHeuresVol: 467,
+    distanceParcourue: 542,
+    immatriculation: ["N628TS", "N272BG", "N502SX"]
   },
   {
     id: 1,
@@ -50,9 +153,9 @@ const PERSONNES: Personne[] = [
     nom: "Gates",
     imageLocation: "/assets/bill.jpg",
     emission: 125.7,
-    nbHeuresVol : 576,
-    distanceParcourue : 542,
-    immatriculation : ["N194WM", "N887WM"]
+    nbHeuresVol: 576,
+    distanceParcourue: 542,
+    immatriculation: ["N194WM", "N887WM"]
   },
   {
     id: 2,
@@ -60,118 +163,118 @@ const PERSONNES: Personne[] = [
     nom: "Jordan",
     imageLocation: "/assets/michael.jpg",
     emission: 523.1,
-    nbHeuresVol : 572,
-    distanceParcourue : 536,
-    immatriculation : ["N236MJ"]
+    nbHeuresVol: 572,
+    distanceParcourue: 536,
+    immatriculation: ["N236MJ"]
   },
   {
-    id : 3,
+    id: 3,
     prenom: "Taylor",
-    nom : "Swift",
+    nom: "Swift",
     imageLocation: "/assets/taylor.jpg",
     emission: 15.231,
-    nbHeuresVol : 79,
-    distanceParcourue : 327,
-    immatriculation : ["N898TS"]
+    nbHeuresVol: 79,
+    distanceParcourue: 327,
+    immatriculation: ["N898TS"]
   },
   {
-    id : 4,
-    prenom : "Jim",
-    nom : "Carrey",
+    id: 4,
+    prenom: "Jim",
+    nom: "Carrey",
     imageLocation: "/assets/jim.jpg",
     emission: 543.1,
-    nbHeuresVol : 92,
-    distanceParcourue : 17,
-    immatriculation : ["N162JC"]
-  },{
-    id : 5,
-    prenom : "Alan",
-    nom : "Sugar",
+    nbHeuresVol: 92,
+    distanceParcourue: 17,
+    immatriculation: ["N162JC"]
+  }, {
+    id: 5,
+    prenom: "Alan",
+    nom: "Sugar",
     imageLocation: "/assets/alan.jpg",
     emission: 0,
-    nbHeuresVol : 0,
-    distanceParcourue : 0.0,
-    immatriculation : ["G-SUGA"]
+    nbHeuresVol: 0,
+    distanceParcourue: 0.0,
+    immatriculation: ["G-SUGA"]
   },
   {
-    id : 6,
-    prenom : "John",
-    nom : "Travolta",
+    id: 6,
+    prenom: "John",
+    nom: "Travolta",
     imageLocation: "/assets/john.jpg",
-    emission : 532,
-    nbHeuresVol : 574,
-    distanceParcourue : 538,
-    immatriculation : ["N707JT"]
+    emission: 532,
+    nbHeuresVol: 574,
+    distanceParcourue: 538,
+    immatriculation: ["N707JT"]
 
   },
   {
-    id : 7,
-    prenom : "Donald",
-    nom : "Trump",
+    id: 7,
+    prenom: "Donald",
+    nom: "Trump",
     imageLocation: "/assets/donald.jpg",
-    emission : 52,
-    nbHeuresVol : 573,
-    distanceParcourue : 538,
-    immatriculation : ["N757AF"]
+    emission: 52,
+    nbHeuresVol: 573,
+    distanceParcourue: 538,
+    immatriculation: ["N757AF"]
   },
   {
-    id : 8,
-    prenom : "Roman",
-    nom : "Abramovich",
+    id: 8,
+    prenom: "Roman",
+    nom: "Abramovich",
     imageLocation: "/assets/roman.jpg",
-    emission : 0,
-    nbHeuresVol : 0,
-    distanceParcourue : 0.0,
-    immatriculation : ["P4-MES"]
+    emission: 0,
+    nbHeuresVol: 0,
+    distanceParcourue: 0.0,
+    immatriculation: ["P4-MES"]
   },
   {
-    id : 9,
-    prenom : "Magic",
-    nom : "Johnson",
+    id: 9,
+    prenom: "Magic",
+    nom: "Johnson",
     imageLocation: "/assets/magic.jpg",
-    emission : 0,
-    nbHeuresVol : 0,
-    distanceParcourue : 0.0,
-    immatriculation : ["N32MJ"]
+    emission: 0,
+    nbHeuresVol: 0,
+    distanceParcourue: 0.0,
+    immatriculation: ["N32MJ"]
   },
   {
-    id : 10,
-    prenom : "Matt",
-    nom : "Damon",
+    id: 10,
+    prenom: "Matt",
+    nom: "Damon",
     imageLocation: "/assets/matt.jpg",
-    emission : 25,
-    nbHeuresVol : 765,
-    distanceParcourue : 542,
-    immatriculation : ["N444WT"]
+    emission: 25,
+    nbHeuresVol: 765,
+    distanceParcourue: 542,
+    immatriculation: ["N444WT"]
   },
   {
-    id : 11,
-    prenom : "",
-    nom : "Windsors",
+    id: 11,
+    prenom: "",
+    nom: "Windsors",
     imageLocation: "/assets/windosors.jpg",
-    emission : 57,
-    nbHeuresVol : 2,
-    distanceParcourue : 100.0,
-    immatriculation : ["G-XXEB"]
+    emission: 57,
+    nbHeuresVol: 2,
+    distanceParcourue: 100.0,
+    immatriculation: ["G-XXEB"]
   },
   {
-    id : 12,
-    prenom : "Harrison",
-    nom : "Ford",
+    id: 12,
+    prenom: "Harrison",
+    nom: "Ford",
     imageLocation: "/assets/harrison.jpg",
-    emission : 65,
-    nbHeuresVol : 87,
-    distanceParcourue : 542,
-    immatriculation : ["LX-DEC"]
+    emission: 65,
+    nbHeuresVol: 87,
+    distanceParcourue: 542,
+    immatriculation: ["LX-DEC"]
   },
   {
-    id : 13,
-    prenom : "",
-    nom : "Jay-Z",
+    id: 13,
+    prenom: "",
+    nom: "Jay-Z",
     imageLocation: "/assets/jayz.jpg",
-    emission : 982,
-    nbHeuresVol : 10020,
-    distanceParcourue : 54200,
-    immatriculation : ["N444SC"]
+    emission: 982,
+    nbHeuresVol: 10020,
+    distanceParcourue: 54200,
+    immatriculation: ["N444SC"]
   }
 ]
