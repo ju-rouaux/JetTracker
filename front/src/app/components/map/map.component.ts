@@ -22,6 +22,7 @@ export class MapComponent implements AfterViewInit {
   private initMap(): void {
     this.map = L.map('map', {
       zoom: 0,
+      scrollWheelZoom: false,
     });
 
     const tiles = L.tileLayer(

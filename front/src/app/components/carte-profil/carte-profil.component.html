@@ -1,12 +1,15 @@
 <div class="container">
   <div class="row">
-    <div *ngFor="let personne of listePersonne | slice :0:3 " class="col-xl-4 col-sm-4 col-xs-4 carte">
+    <div
+      *ngFor="let personne of listePersonne | slice : 0 : 3"
+      class="col-xl-4 col-sm-4 col-xs-4 carte"
+    >
       <div class="conteneur-image">
-        <img src="{{personne.imageLocation}}" alt="">
+        <img src="{{ personne.imageLocation }}" alt="" />
       </div>
       <div class="texte">
-        <h1 class="nom">{{personne.prenom}} {{personne.nom}}</h1>
-        <p class="consommation">{{personne.emission}}gCO2</p>
+        <h1 class="nom">{{ personne.prenom }} {{ personne.nom }}</h1>
+        <p class="consommation">{{ personne.emission }}gCO2</p>
       </div>
     </div>
   </div>
