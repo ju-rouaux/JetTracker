@@ -1,176 +1,22 @@
 <div id="main">
     <div id="barre">
-
+        <h2 id="nom">{{nom}}</h2>
     </div>
-    <div id="fond"></div>
-    <div id="contenu"><p>afdsjiudshudibackground-color: white;background-color: white;background-color: white;</p></div>
-</div>
-
-<!-- <div class="container h- w-50 d-flex flex-column" id="boarding-pass">
-
-    <div id="background">
-        
-    </div>
-    
-    <div class="row h-30 w-105" id="header">
-        <img src="https://cdn-icons-png.flaticon.com/512/3286/3286347.png" class="air-plane" id="icon1" alt="">
-        <img src="https://cdn-icons-png.flaticon.com/512/3286/3286347.png" class="air-plane" id="icon2" alt="">
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-
-            <div class="row boarding-data">
-                <div class="col-md-2">
-                    <p>
-                        PASSENGER <br>
-                        <span class="highlight">OKAT Elias</span>
-                    </p>
-                </div>
-
-                <div class="col-md-3">
-                    <p>
-                        FLIGHT <br>
-                        <span class="highlight">CZ 156</span>
-                    </p>
-                </div>
-
-                <div class="col-md-2" >
-                    <p>
-                        CLASS <br>
-                        <span class="highlight">FIRST CLASS</span>
-                    </p>
-                </div>
-
-                <div id="stamp">
-
-                </div>
-                <div id="vl">
-
-                </div>
-
-                <div class="col-md-1 left-side">
-                    <p>
-                        PASSENGER <br>
-                        <span class="highlight">OKAT Elias</span>
-                    </p>
-                </div>
+    <div id="contenu">
+        <div id="left">
+            <div id="from">
+                <span>{{depart.aeroport}}<br>{{depart.heure}}<br>{{depart.date}}</span>
             </div>
-
-            <br>
-
-            <div class="row boarding-data">
-                <div class="col-md-2">
-
-                    <h5>SYD</h5>
-                    <p>
-                        (Sydney) <br>
-                        7:30 AM <br>
-                        Tue, 28 April 2023
-                    </p>
-
-                </div>
-                
-                <div class="col-md-3">
-
-                </div>
-
-                <div class="col-md-2">
-
-                    <h5>CDG</h5>
-                    <p>
-                        (Paris) <br>
-                        13:55 AM <br>
-                        Tue, 28 April 2023
-                    </p>
-
-                </div>
-
-                <div class="col-md-1 left-side">
-
-                    <h5>FROM</h5>
-                    <p>
-                        Sydney
-                    </p>
-
-                </div>
-
-                <div class="col-md-1 left-side" id="arrival">
-
-                    <h5>TO</h5>
-                    <p>
-                        Paris
-                    </p>
-
-                </div>
+            <div id="to">
+                <span>{{arrivee.aeroport}}<br>{{arrivee.heure}}<br>{{arrivee.date}}</span>
             </div>
-
-            <br>
-            
-            <div class="row boarding-data">
-                <div class="col-md-2">
-
-                    <p>
-                        GATE <br>
-                        <span class="highlight">A 21</span>
-                    </p>
-
-                </div>
-                
-                <div class="col-md-3">
-                    <p>
-                        BOARDING <br>
-                        <span class="highlight">06:50 AM</span>
-                    </p>
-                </div>
-                
-                <div class="col-md-2">
-
-                    <p>
-                        SEAT <br>
-                        <span class="highlight">4 A</span>
-                    </p>
-
-                </div>
-
-                <div class="col-md-1 left-side">
-
-                    <p>
-                        GATE2 <br>
-                        <span class="highlight">A 21</span>
-                    </p>
-
-                </div>
-
-                <div class="col-md-2" id="boarding-time">
-
-                    <p>
-                        BOARDING2 <br>
-                        <span class="highlight">06:50 AM</span>
-                    </p>
-
-                </div>
-
-                <div class="col-md-1">
-
-                    <p>
-                        SEAT2 <br>
-                        <span class="highlight">4 A</span>
-                    </p>
-
-                </div>
-            </div>
-
-            <div class="row boarding-data">
-
-                <div class="col-md-7" >
-                    <p class="float-end">GATE CLOSES 40 MINUTES BEFORE DEPARTURE</p>
-                </div>
-            </div>
-
         </div>
-
-
+        <div id="right">
+            <div id="vol">
+                <h2>Vol</h2>
+                <p>{{immatriculation}}</p>
+            </div>
+            <img src="/assets/img/logo.svg" alt="">
+        </div>
     </div>
-
-    
-</div> -->
+</div>

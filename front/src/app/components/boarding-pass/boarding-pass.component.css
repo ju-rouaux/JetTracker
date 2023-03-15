@@ -1,276 +1,113 @@
+/* Conteneur principal */
 #main {
     position: relative;
-
+    background-image: url(/assets/img/ticket.svg);
+    background-repeat: no-repeat;
     width: 50%;
     aspect-ratio: 2/1;
     margin: auto;
     margin-bottom: 6vh;
-
-    border-radius: 3vh;
-    border: 1px solid yellow;
-    background-color: white;
     overflow: hidden;
-    z-index: 0;
+    /* border: 1px solid yellow; */
 }
 
+/* Partie supérieure */
 #barre {
     position: relative;
-    height: 15%;
-
-    background-color: orange;
+    height: 24%;
+    /* border: 1px solid aqua; */
 }
 
-#fond {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/World_map_blank_gmt.svg/1280px-World_map_blank_gmt.svg.png);
-    background-size: cover;
-    z-index: 1;
-}
-
-#contenu {
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-}
-
-
-
-
-/* body{
-    background-color: #777;
-    font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
-}
-
-#boarding-pass {
+/* Nom du propriétaire de l'avion */
+#nom {
+    font-size: 2.5vw;
     position: relative;
-    margin: 100px auto;
-    background-color: #f8f8f8;
-    border-radius: 10px;
-    padding: 0%;
-    padding-right: 10px;
-    overflow: hidden;
-}
-
-#boarding-pass > * {
-    z-index: 1;
-}
-
-.highlight {
-    color: #ed5846;
-    font-weight: bold;
-}
-
-#background {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/World_map_blank_gmt.svg/1280px-World_map_blank_gmt.svg.png);
-    background-size: 60% 100% contain;
-    background-repeat: repeat-x, no-repeat;
-    width: 100%;
-    height: 100%;
-    opacity: 0.4;
-}
-
-#header {
-    background: #ed5846;
-    height: 8vh;
-    width: 120%;
-}
-
-#header:hover {
-    background: linear-gradient(to bottom, #36475f, #2c394f);
-}
-
-.left-side {
+    top: 50%;
+    transform: translateY(-50%);
     margin-left: 5%;
+    width: 60%;
+
+    /* Couper le nom lorsqu'il est trop grand */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* border: 1px solid red; */
 }
 
-#info{
-    text-align: center;
+/* Partie inférieure */
+#contenu {
+    position: relative;
+    height: 76%;    
 }
 
-.btn{
-    padding: 10px 50px;
-    font-size: 25px;
-    font-weight: 600;
-    background: #333;
-    color: #fff;
-    margin-bottom: 5%;
-}
+/* Bloc à gauche du prédécoupage du ticket*/
+#left {
+    position: relative;
+    float: left;
 
-.btn:hover{
-    background: #32a0e9;
-}
-
-.offer{
-    font-size: 5rem;
-}
-
-#mobile-plane{
-    display: none;
-}
-
-#test {
-    width: 100%;
+    width: 71%;
     height: 100%;
+    font-size: 2vw;
+
+    /* border: 1px solid green; */
 }
 
-
-
-#test3 {
-    background-color: orange;
-}
-
-.boarding-data {
-    margin-left: 2%;
-    margin-top: 2%;
-}
-
-.p-small {
-    font-size: small;
-}
-
-.air-plane {
-    width: auto;
-    height: 70%;
-    transform: rotate(180deg);
-    filter: invert(100%);
-}
-
-#icon1 {
-    margin-top: 0.8%;
-    margin-left: 3.3%;
-}
-
-#icon2 {
-    margin-top: 0.8%;
-    margin-left: 46.5%;
-}
-@media(min-width:768px) and (max-width:991px){
-    #image #plane{
-        width: 350px;
-        left: 20%;
-    }
-    .offer{
-        font-size: 3rem;
-    }
-    .btn{
-        font-size: 20px;
-    }
-    #mobile-plane{
-        display: none;
-    }
-}
-
-@media(min-width:431px) and (max-width:767px){
-    #mobile-plane{
-        display: none;
-    }
-    #image{
-        display: none;
-    }
-    #info{
-        border-radius: 10px;
-        padding: 180px 0 10px;
-        background: url('https://image.freepik.com/free-vector/modern-metropolis-night-cityscape-cartoon-vector_1441-2959.jpg') no-repeat center center/cover;
-    }
-    .container{
-        max-width: 100%;
-        padding: 0;
-        height: 580px;
-        color: #fff;
-        margin-top: 10px;
-        margin-left: 20px;
-    }
-} 
-
-@media(max-width:431px){
-    .container{
-        max-width: 100%;
-        padding: 0;
-        height: 580px;
-        color: #fff;
-        margin-top: 10px;
-        margin-left: 20px;
-    }
-    #image{
-        display: none;
-    }
-    .coupon{
-        color: #fff;
-    }
-    #info{
-        border-radius: 10px;
-        padding: 180px 0 10px;
-        background: url('https://image.freepik.com/free-vector/modern-metropolis-night-cityscape-cartoon-vector_1441-2959.jpg') no-repeat center center/cover;
-    }
-    .btn{
-        background-color: #eee;
-        color: #333;
-    }
-    .btn:hover{
-        background-color: #7311cf;
-        color: #fff;
-    }
-    #info #mobile-plane{
-        display: block;
-        z-index: 1;
-    }
-    #info #mobile-plane img{
-        position: absolute;
-        width: 300px;
-        top: 10%;
-        left: 10%;
-    }  
-}
-
-@media(max-width:340px){
-    .offer{
-        font-size: 2.9rem;
-    }
-    .container{
-        height: 500px;
-    }
-    #info #mobile-plane img{
-        width: 200px;
-    }
-}
-
-.h-20 {
-    height: 20%;
-}
-
-#boarding-time {
-    margin-left: 3%;
-    margin-right: 0%;
-}
-
-#arrival {
-    margin-left: 20%;
-}
-
-#vl {
+/* Informations relatives à l'aéroport de départ */
+#from { 
     position: absolute;
-    left: 61%;
-    top: 5.3%;
-    border-left: 3px solid lightgrey;
-    border-left-style: dashed;
-    height: 95%;
+    aspect-ratio: 3/4;
+    width: 20%;
+
+    top: 48%;
+    transform: translate(50%, -50%);
+    
+    /* Centrer texte interne */
+    display: flex;
+    align-items: center;
+    
+    /* border: 1px solid purple; */
 }
 
-#stamp {
+/* Informations relatives à l'aéroport d'arrivée */
+#to {
     position: absolute;
-    left: 59%;
-    top: -5%;
-    width: 5vh;
-    height: 5vh;
-    border-radius: 50%;
-    background-color: #fff;
-    display: inline-block;
-} */
+    aspect-ratio: 3/4;
+    right: 0;
+    width: 20%; 
+    top: 48%;
+    transform: translate(-80%, -50%);
+
+    /* Centrer texte interne */
+    display: flex;
+    align-items: center;
+
+    /* border: 1px solid salmon; */
+}
+
+/* Bloc à droite du prédécoupage du ticket*/
+#right {
+    position: relative;
+    float: right;
+    width: 27%;
+    height: 100%;
+    /* border: 1px solid magenta; */
+}
+
+/* Informations relatives au modèle de l'avion */
+#vol {
+    position: absolute;
+    height: 25%;
+    aspect-ratio: 3/2;
+    transform: translate(40%, 30%);
+    text-align: center;
+    
+    /* border: 1px solid pink; */
+}
+
+/* Logo du site */
+img {
+    position: absolute;
+    width: 30%;
+    bottom: 0;
+    transform: translate(110%, -50%);
+}
