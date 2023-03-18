@@ -48,12 +48,13 @@ export class PersonneService {
               distanceParcourue += greatCircleDistance;
             }
             if (flightData.hasOwnProperty('departure') && flightData.hasOwnProperty('arrival')) {
-              if(flightData.departure.hasOwnProperty('scheduledTimeLocal') && flightData.arrival.hasOwnProperty('scheduledTimeLocal')) {
-                const departureTime = flightData.departure.scheduledTimeLocal;
-                const arrivalTime = flightData.arrival.scheduledTimeLocal;
-                if (departureTime && arrivalTime) {
-                  nbHeuresVol += (arrivalTime - departureTime);
-                }
+              const departureTimeStr = flightData.departure.scheduledTimeLocal;
+              const arrivalTimeStr = flightData.arrival.scheduledTimeLocal;
+              if (departureTimeStr && arrivalTimeStr) {
+                const departureTime = new Date(departureTimeStr.replace(' ', 'T')).getTime();
+                const arrivalTime = new Date(arrivalTimeStr.replace(' ', 'T')).getTime();
+                const nbHoursMillis = arrivalTime - departureTime;
+                nbHeuresVol += Math.floor(nbHoursMillis / (1000 * 60 * 60));
               }
             }
             flights.push(flightData);
