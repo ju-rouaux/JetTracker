@@ -17,6 +17,7 @@ export class SelecteurPersonneComponent {
 
   async ngOnInit() {
     this.listePersonne = await this.personneService.getListePersonne();
+    console.log("Liste personnes " + this.listePersonne)
   }
 
   // Lorsqu'un élément de la liste est sélectionné

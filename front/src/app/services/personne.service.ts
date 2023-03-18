@@ -1,12 +1,15 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonneService {
 
+  personnes: Personne[] = [];
+
   constructor(private http: HttpClient) {
+    this.chargerPersonnes();
   }
 
   /**
@@ -15,22 +18,24 @@ export class PersonneService {
 
    @returns la liste de toutes les personnes.
    */
-  async getListePersonne(): Promise<Personne[]> {
+  async chargerPersonnes(): Promise<Personne[]> {
     try {
       const jsonData = await this.http.get<any>('/assets/parse.json').toPromise();
-
-      const personnes: Personne[] = [];
-      let i = 0;
       for (const personneKey of Object.keys(jsonData)) {
         const data = jsonData[personneKey];
         const jets: Jet[] = [];
         const flights: Flight[] = [];
+        const immat: string[] = [];
+        let nbHeuresVol = 0;
         let distanceParcourue = 0;
         if (data.jets) {
           for (const jetKey of Object.keys(data.jets)) {
             const jetData = data.jets[jetKey];
             for (const innerJetKey of Object.keys(jetData)) {
               const jet = jetData[innerJetKey];
+              for (const innerInnerJetKey of Object.keys(jet)) {
+                immat.push(innerInnerJetKey)
+              }
               jets.push(jet);
             }
           }
@@ -38,39 +43,56 @@ export class PersonneService {
         if (data.flights) {
           for (const flightKey of Object.keys(data.flights)) {
             const flightData = data.flights[flightKey];
-            for (const innerFlightKey of Object.keys(flightData)) {
-              const flight = flightData[innerFlightKey];
-              const greatCircleDistance = flight.greatCircleDistance?.km;
-              if (greatCircleDistance) {
-                distanceParcourue += greatCircleDistance;
-              }
-              flights.push(flight);
+            const greatCircleDistance = flightData.greatCircleDistance?.km;
+            if (greatCircleDistance) {
+              distanceParcourue += greatCircleDistance;
             }
+            if (flightData.hasOwnProperty('departure') && flightData.hasOwnProperty('arrival')) {
+              if(flightData.departure.hasOwnProperty('scheduledTimeLocal') && flightData.arrival.hasOwnProperty('scheduledTimeLocal')) {
+                const departureTime = flightData.departure.scheduledTimeLocal;
+                const arrivalTime = flightData.arrival.scheduledTimeLocal;
+                if (departureTime && arrivalTime) {
+                  nbHeuresVol += (arrivalTime - departureTime);
+                }
+              }
+            }
+            flights.push(flightData);
           }
         }
         const nameParts = personneKey.split(' ');
         const prenom = nameParts[0];
         const nom = nameParts.slice(1).join(' ');
-        const personne = new Personne(
-          i++,
-          prenom,
-          nom,
-          data.imageLocation,
-          data.emission,
-          data.nbHeuresVol,
-          distanceParcourue,
-          data.immatriculation,
-          jets
-        );
-        personnes.push(personne);
+        const existingPersonne = this.personnes.find(p => p.prenom === prenom && p.nom === nom);
+        if (existingPersonne) {
+          existingPersonne.emission = data.emission;
+          existingPersonne.nbHeuresVol = data.nbHeuresVol;
+          existingPersonne.distanceParcourue = distanceParcourue;
+          existingPersonne.immatriculation = immat;
+        } else {
+          const personne = new Personne(
+            this.personnes.length,
+            prenom,
+            nom,
+            data.imageLocation,
+            data.emission,
+            nbHeuresVol,
+            distanceParcourue,
+            immat
+          );
+          this.personnes.push(personne);
+        }
       }
-
-      return personnes;
+      return this.personnes;
     } catch (error) {
       console.error(error);
       return [];
     }
   }
+
+  getListePersonne() {
+    return this.personnes;
+  }
+
 }
 
 interface Jet {
@@ -115,7 +137,7 @@ export class Personne {
     public emission?: string,
     public nbHeuresVol?: number,
     public distanceParcourue?: number,
-    public immatriculation?: string,
-    public jets?: Jet[]
-  ) { }
+    public immatriculation?: string[],
+  ) {
+  }
 }
