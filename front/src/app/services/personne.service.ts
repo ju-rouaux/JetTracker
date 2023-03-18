@@ -28,6 +28,7 @@ export class PersonneService {
         const immat: string[] = [];
         let nbHeuresVol = 0;
         let distanceParcourue = 0;
+        let co2 = 0;
         if (data.jets) {
           for (const jetKey of Object.keys(data.jets)) {
             const jetData = data.jets[jetKey];
@@ -48,8 +49,8 @@ export class PersonneService {
               distanceParcourue += greatCircleDistance;
             }
             if (flightData.hasOwnProperty('departure') && flightData.hasOwnProperty('arrival')) {
-              const departureTimeStr = flightData.departure.scheduledTimeLocal;
-              const arrivalTimeStr = flightData.arrival.scheduledTimeLocal;
+              const departureTimeStr = flightData.departure.scheduledTimeUtc;
+              const arrivalTimeStr = flightData.arrival.scheduledTimeUtc;
               if (departureTimeStr && arrivalTimeStr) {
                 const departureTime = new Date(departureTimeStr.replace(' ', 'T')).getTime();
                 const arrivalTime = new Date(arrivalTimeStr.replace(' ', 'T')).getTime();
@@ -60,6 +61,7 @@ export class PersonneService {
             flights.push(flightData);
           }
         }
+        co2 = distanceParcourue * 0.49;
         const nameParts = personneKey.split(' ');
         const prenom = nameParts[0];
         const nom = nameParts.slice(1).join(' ');
@@ -75,7 +77,7 @@ export class PersonneService {
             prenom,
             nom,
             data.imageLocation,
-            data.emission,
+            co2,
             nbHeuresVol,
             distanceParcourue,
             immat
@@ -135,7 +137,7 @@ export class Personne {
     public prenom: string,
     public nom: string,
     public imageLocation?: string,
-    public emission?: string,
+    public emission?: number,
     public nbHeuresVol?: number,
     public distanceParcourue?: number,
     public immatriculation?: string[],

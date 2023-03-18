@@ -1,7 +1,7 @@
 {
   "Bill Gates": {
     "flights": {
-      "-NQbK_Y5uRzHzpWx_kzL": {
+      "-NQq8bUmiCgE6zj_rZkH": {
         "aircraft": {
           "modeS": "A17907",
           "model": "Gulfstream G500",
@@ -12,20 +12,20 @@
             "lat": 47.53,
             "lon": -122.302
           },
-          "scheduledTimeLocal": "2023-02-14 12:41-08:00"
+          "scheduledTimeUtc": "2023-02-14 20:41Z"
         },
         "departure": {
           "location": {
             "lat": 40.6925,
             "lon": -74.1687
           },
-          "scheduledTimeLocal": "2023-02-14 11:46-05:00"
+          "scheduledTimeUtc": "2023-02-14 16:46Z"
         },
         "greatCircleDistance": {
           "km": 3857.516
         }
       },
-      "-NQbK_YWWCyG6BuROED0": {
+      "-NQq8bV-iWCxakDMXFF_": {
         "aircraft": {
           "modeS": "A17907",
           "model": "Gulfstream G500",
@@ -36,20 +36,20 @@
             "lat": 45.7775,
             "lon": -111.153
           },
-          "scheduledTimeLocal": "2023-02-24 15:03-07:00"
+          "scheduledTimeUtc": "2023-02-24 22:03Z"
         },
         "departure": {
           "location": {
             "lat": 47.53,
             "lon": -122.302
           },
-          "scheduledTimeLocal": "2023-02-24 12:52-08:00"
+          "scheduledTimeUtc": "2023-02-24 20:52Z"
         },
         "greatCircleDistance": {
           "km": 873.111
         }
       },
-      "-NQbK_YlBZTgM5lvjeuY": {
+      "-NQq8bV46RjqAImQcxVz": {
         "aircraft": {
           "modeS": "A17907",
           "model": "Gulfstream G500",
@@ -66,13 +66,13 @@
             "lat": 26.6832,
             "lon": -80.0956
           },
-          "scheduledTimeLocal": "2023-02-28 15:20-05:00"
+          "scheduledTimeUtc": "2023-02-28 20:20Z"
         },
         "greatCircleDistance": {
           "km": 4331.572
         }
       },
-      "-NQbK_YzTOEkyMnFWQoD": {
+      "-NQq8bVHCSlDlDuwEJFY": {
         "aircraft": {
           "modeS": "AC39D6",
           "model": "Gulfstream G650",
@@ -83,20 +83,20 @@
             "lat": 60.1939,
             "lon": 11.100399
           },
-          "scheduledTimeLocal": "2023-02-13 17:16+01:00"
+          "scheduledTimeUtc": "2023-02-13 16:16Z"
         },
         "departure": {
           "location": {
             "lat": 33.6267,
             "lon": -116.16
           },
-          "scheduledTimeLocal": "2023-02-12 23:00-08:00"
+          "scheduledTimeUtc": "2023-02-13 07:00Z"
         },
         "greatCircleDistance": {
           "km": 8538.892
         }
       },
-      "-NQbK_ZF3t-RMMnFBMad": {
+      "-NQq8bVTNBmct3J204Pc": {
         "aircraft": {
           "modeS": "AC39D6",
           "model": "Gulfstream G650",
@@ -107,20 +107,20 @@
             "lat": 33.6267,
             "lon": -116.16
           },
-          "scheduledTimeLocal": "2023-02-19 16:44-08:00"
+          "scheduledTimeUtc": "2023-02-20 00:44Z"
         },
         "departure": {
           "location": {
             "lat": 40.6925,
             "lon": -74.1687
           },
-          "scheduledTimeLocal": "2023-02-19 14:41-05:00"
+          "scheduledTimeUtc": "2023-02-19 19:41Z"
         },
         "greatCircleDistance": {
           "km": 3770.345
         }
       },
-      "-NQbK_ZZpk7GXuNEDFoC": {
+      "-NQq8bVkTQCxkELVpKJ-": {
         "aircraft": {
           "modeS": "AC39D6",
           "model": "Gulfstream G650",
@@ -137,13 +137,13 @@
             "lat": 47.53,
             "lon": -122.302
           },
-          "scheduledTimeLocal": "2023-02-23 11:01-08:00"
+          "scheduledTimeUtc": "2023-02-23 19:01Z"
         },
         "greatCircleDistance": {
           "km": 1600.468
         }
       },
-      "-NQbK_Zoa08Kjf2wblc7": {
+      "-NQq8bVzBnRQMzos9Ssl": {
         "aircraft": {
           "modeS": "AC39D6",
           "model": "Gulfstream G650",
@@ -154,14 +154,14 @@
             "lat": 34.4273,
             "lon": 135.244
           },
-          "scheduledTimeLocal": "2023-02-27 05:43+09:00"
+          "scheduledTimeUtc": "2023-02-26 20:43Z"
         },
         "departure": {
           "location": {
             "lat": 33.6267,
             "lon": -116.16
           },
-          "scheduledTimeLocal": "2023-02-26 00:42-08:00"
+          "scheduledTimeUtc": "2023-02-26 08:42Z"
         },
         "greatCircleDistance": {
           "km": 9417.861
@@ -171,7 +171,7 @@
   },
   "Donald Trump": {
     "flights": {
-      "-NQbK__4kUweDJen7tFa": {
+      "-NQq8bWDBgffyGO9xDTz": {
         "aircraft": {
           "modeS": "AA3410",
           "model": "Boeing 757",
@@ -182,14 +182,14 @@
             "lat": 38.8521,
             "lon": -77.0377
           },
-          "scheduledTimeLocal": "2023-03-10 11:32-05:00"
+          "scheduledTimeUtc": "2023-03-10 16:32Z"
         }
       }
     }
   },
   "Elon Musk": {
     "flights": {
-      "-NQbK__ZGiTeiWyOrJ2f": {
+      "-NQq8bWd80jDrfFpy-sV": {
         "aircraft": {
           "modeS": "A64304",
           "model": "Gulfstream Aerospace V",
@@ -206,13 +206,13 @@
             "lat": 25.9068,
             "lon": -97.4259
           },
-          "scheduledTimeLocal": "2023-02-23 09:56-06:00"
+          "scheduledTimeUtc": "2023-02-23 15:56Z"
         },
         "greatCircleDistance": {
           "km": 2207.505
         }
       },
-      "-NQbK__mi0JiuklUUIHi": {
+      "-NQq8bWxKZKwEdoQHX-K": {
         "aircraft": {
           "modeS": "A64304",
           "model": "Gulfstream Aerospace V",
@@ -223,20 +223,20 @@
             "lat": 25.9068,
             "lon": -97.4259
           },
-          "scheduledTimeLocal": "2023-02-26 21:24-06:00"
+          "scheduledTimeUtc": "2023-02-27 03:24Z"
         },
         "departure": {
           "location": {
             "lat": 33.9425,
             "lon": -118.408
           },
-          "scheduledTimeLocal": "2023-02-26 16:45-08:00"
+          "scheduledTimeUtc": "2023-02-27 00:45Z"
         },
         "greatCircleDistance": {
           "km": 2207.505
         }
       },
-      "-NQbK__umCUCP9MXsTh8": {
+      "-NQq8bXCNZHQy3LN59jk": {
         "aircraft": {
           "modeS": "A835AF",
           "model": "Gulfstream G650",
@@ -247,20 +247,20 @@
             "lat": 33.4225,
             "lon": -112.376
           },
-          "scheduledTimeLocal": "2023-02-12 14:39-07:00"
+          "scheduledTimeUtc": "2023-02-12 21:39Z"
         },
         "departure": {
           "location": {
             "lat": 37.7213,
             "lon": -122.221
           },
-          "scheduledTimeLocal": "2023-02-12 12:35-08:00"
+          "scheduledTimeUtc": "2023-02-12 20:35Z"
         },
         "greatCircleDistance": {
           "km": 1010.948
         }
       },
-      "-NQbK_a4fK-xM3M84yBD": {
+      "-NQq8bXSCOdF80a6Ikgy": {
         "aircraft": {
           "modeS": "A835AF",
           "model": "Gulfstream Aerospace G650",
@@ -271,20 +271,20 @@
             "lat": 37.6592,
             "lon": -122.122
           },
-          "scheduledTimeLocal": "2023-02-21 13:23-08:00"
+          "scheduledTimeUtc": "2023-02-21 21:23Z"
         },
         "departure": {
           "location": {
             "lat": 30.194498,
             "lon": -97.6699
           },
-          "scheduledTimeLocal": "2023-02-21 12:18-06:00"
+          "scheduledTimeUtc": "2023-02-21 18:18Z"
         },
         "greatCircleDistance": {
           "km": 2397.952
         }
       },
-      "-NQbK_aDL5EP-C7-ldgH": {
+      "-NQq8bXipHIwDEQbIIzU": {
         "aircraft": {
           "modeS": "A835AF",
           "model": "Gulfstream G650",
@@ -301,13 +301,13 @@
             "lat": 30.194498,
             "lon": -97.6699
           },
-          "scheduledTimeLocal": "2023-03-02 10:30-06:00"
+          "scheduledTimeUtc": "2023-03-02 16:30Z"
         },
         "greatCircleDistance": {
           "km": 2374.055
         }
       },
-      "-NQbK_aM00SNrxwSE_WL": {
+      "-NQq8bXzoeIRRLCtXcz5": {
         "aircraft": {
           "modeS": "A835AF",
           "model": "Gulfstream G650",
@@ -318,20 +318,20 @@
             "lat": 30.194498,
             "lon": -97.6699
           },
-          "scheduledTimeLocal": "2023-03-04 02:52-06:00"
+          "scheduledTimeUtc": "2023-03-04 08:52Z"
         },
         "departure": {
           "location": {
             "lat": 37.7213,
             "lon": -122.221
           },
-          "scheduledTimeLocal": "2023-03-03 21:45-08:00"
+          "scheduledTimeUtc": "2023-03-04 05:45Z"
         },
         "greatCircleDistance": {
           "km": 2408.006
         }
       },
-      "-NQbK_aaXmdHRnumSW6A": {
+      "-NQq8bYDCM_0qSF4JxYb": {
         "aircraft": {
           "modeS": "A835AF",
           "model": "Gulfstream G650",
@@ -342,20 +342,20 @@
             "lat": 37.7213,
             "lon": -122.221
           },
-          "scheduledTimeLocal": "2023-03-06 14:06-08:00"
+          "scheduledTimeUtc": "2023-03-06 22:06Z"
         },
         "departure": {
           "location": {
             "lat": 30.194498,
             "lon": -97.6699
           },
-          "scheduledTimeLocal": "2023-03-06 13:00-06:00"
+          "scheduledTimeUtc": "2023-03-06 19:00Z"
         },
         "greatCircleDistance": {
           "km": 2408.006
         }
       },
-      "-NQbK_aiGmBx7iTO2P96": {
+      "-NQq8bYRAgZAoAE3CxlQ": {
         "aircraft": {
           "modeS": "A835AF",
           "model": "Gulfstream Aerospace G650",
@@ -372,7 +372,7 @@
             "lat": 37.7213,
             "lon": -122.221
           },
-          "scheduledTimeLocal": "2023-03-10 19:54-08:00"
+          "scheduledTimeUtc": "2023-03-11 03:54Z"
         },
         "greatCircleDistance": {
           "km": 2408.006
@@ -382,7 +382,7 @@
   },
   "Jay-Z": {
     "flights": {
-      "-NQbK_atciVrOPbBL4UY": {
+      "-NQq8bYeHTfdXhAGMhan": {
         "aircraft": {
           "modeS": "A55B0C",
           "model": "Gulfstream Aerospace V",
@@ -393,20 +393,20 @@
             "lat": 34.2098,
             "lon": -118.49
           },
-          "scheduledTimeLocal": "2023-02-12 23:04-08:00"
+          "scheduledTimeUtc": "2023-02-13 07:04Z"
         },
         "departure": {
           "location": {
             "lat": 33.4343,
             "lon": -112.012
           },
-          "scheduledTimeLocal": "2023-02-12 23:01-07:00"
+          "scheduledTimeUtc": "2023-02-13 06:01Z"
         },
         "greatCircleDistance": {
           "km": 605.167
         }
       },
-      "-NQbK_b3sK34FGFiYN_B": {
+      "-NQq8bYyWwiNHSkIXMGX": {
         "aircraft": {
           "modeS": "A55B0C",
           "model": "Gulfstream Aerospace V",
@@ -417,20 +417,20 @@
             "lat": 33.4343,
             "lon": -112.012
           },
-          "scheduledTimeLocal": "2023-02-13 02:14-07:00"
+          "scheduledTimeUtc": "2023-02-13 09:14Z"
         },
         "departure": {
           "location": {
             "lat": 34.2098,
             "lon": -118.49
           },
-          "scheduledTimeLocal": "2023-02-13 00:01-08:00"
+          "scheduledTimeUtc": "2023-02-13 08:01Z"
         },
         "greatCircleDistance": {
           "km": 605.167
         }
       },
-      "-NQbK_bG2pjUs3qdyI6v": {
+      "-NQq8bZC9T2-qNikDHfp": {
         "aircraft": {
           "modeS": "A55B0C",
           "model": "Gulfstream Aerospace V",
@@ -447,13 +447,13 @@
             "lat": 42.3643,
             "lon": -71.0052
           },
-          "scheduledTimeLocal": "2023-02-14 14:30-05:00"
+          "scheduledTimeUtc": "2023-02-14 19:30Z"
         },
         "greatCircleDistance": {
           "km": 3826.931
         }
       },
-      "-NQbK_bc8NULp106jdYz": {
+      "-NQq8bZUiZUv2ok9CF5m": {
         "aircraft": {
           "modeS": "A55B0C",
           "model": "Gulfstream Aerospace V",
@@ -464,14 +464,14 @@
             "lat": 40.7884,
             "lon": -111.978
           },
-          "scheduledTimeLocal": "2023-02-15 16:26-07:00"
+          "scheduledTimeUtc": "2023-02-15 23:26Z"
         },
         "departure": {
           "location": {
             "lat": 36.0801,
             "lon": -115.152
           },
-          "scheduledTimeLocal": "2023-02-15 14:30-08:00"
+          "scheduledTimeUtc": "2023-02-15 22:30Z"
         },
         "greatCircleDistance": {
           "km": 592.598
@@ -481,7 +481,7 @@
   },
   "Jim Carrey": {
     "flights": {
-      "-NQbK_boH5JiWHhLhsRK": {
+      "-NQq8bZkZAJk-BjQ7wR7": {
         "aircraft": {
           "modeS": "A0F9E7",
           "model": "G5",
@@ -492,20 +492,20 @@
             "lat": 33.6229,
             "lon": -111.911
           },
-          "scheduledTimeLocal": "2023-02-15 08:07-07:00"
+          "scheduledTimeUtc": "2023-02-15 15:07Z"
         },
         "departure": {
           "location": {
             "lat": 34.2098,
             "lon": -118.49
           },
-          "scheduledTimeLocal": "2023-02-15 06:15-08:00"
+          "scheduledTimeUtc": "2023-02-15 14:15Z"
         },
         "greatCircleDistance": {
           "km": 611.148
         }
       },
-      "-NQbK_c4EOImgRh2BUtJ": {
+      "-NQq8b_9mCn06A3kLawq": {
         "aircraft": {
           "modeS": "A0F9E7",
           "model": "G5",
@@ -516,20 +516,20 @@
             "lat": 25.7932,
             "lon": -80.2906
           },
-          "scheduledTimeLocal": "2023-02-16 12:30-05:00"
+          "scheduledTimeUtc": "2023-02-16 17:30Z"
         },
         "departure": {
           "location": {
             "lat": 26.6832,
             "lon": -80.0956
           },
-          "scheduledTimeLocal": "2023-02-16 12:15-05:00"
+          "scheduledTimeUtc": "2023-02-16 17:15Z"
         },
         "greatCircleDistance": {
           "km": 100.969
         }
       },
-      "-NQbK_cO4HAUdRaY7e6r": {
+      "-NQq8b_VinAozhCh0rzs": {
         "aircraft": {
           "modeS": "A0F9E7",
           "model": "G5",
@@ -540,20 +540,20 @@
             "lat": 37.619,
             "lon": -122.375
           },
-          "scheduledTimeLocal": "2023-02-18 07:20-08:00"
+          "scheduledTimeUtc": "2023-02-18 15:20Z"
         },
         "departure": {
           "location": {
             "lat": 34.2098,
             "lon": -118.49
           },
-          "scheduledTimeLocal": "2023-02-18 06:30-08:00"
+          "scheduledTimeUtc": "2023-02-18 14:30Z"
         },
         "greatCircleDistance": {
           "km": 516.331
         }
       },
-      "-NQbK_cZyUOdJ_vnw0hl": {
+      "-NQq8b_rBiWG8eWOW6ab": {
         "aircraft": {
           "modeS": "A0F9E7",
           "model": "G5",
@@ -564,14 +564,14 @@
             "lat": 34.2098,
             "lon": -118.49
           },
-          "scheduledTimeLocal": "2023-02-20 09:59-08:00"
+          "scheduledTimeUtc": "2023-02-20 17:59Z"
         },
         "departure": {
           "location": {
             "lat": 37.3626,
             "lon": -121.929
           },
-          "scheduledTimeLocal": "2023-02-20 09:15-08:00"
+          "scheduledTimeUtc": "2023-02-20 17:15Z"
         },
         "greatCircleDistance": {
           "km": 468.558
@@ -581,7 +581,7 @@
   },
   "Magic Johnson": {
     "flights": {
-      "-NQbK_cgdhZmUTXJfuMt": {
+      "-NQq8ba8U235wcDO05zN": {
         "aircraft": {
           "modeS": "A36D13",
           "model": "GLF3",
@@ -592,14 +592,14 @@
             "lat": 52.702,
             "lon": -8.924819
           },
-          "scheduledTimeLocal": "2023-01-16 05:52+00:00"
+          "scheduledTimeUtc": "2023-01-16 05:52Z"
         },
         "departure": {
           "location": {
             "lat": 40.8501,
             "lon": -74.0608
           },
-          "scheduledTimeLocal": "2023-01-15 19:46-05:00"
+          "scheduledTimeUtc": "2023-01-16 00:46Z"
         },
         "greatCircleDistance": {
           "km": 4955.558
@@ -609,7 +609,7 @@
   },
   "Matt Damon": {
     "flights": {
-      "-NQbK_cpYuUix2vi-XPh": {
+      "-NQq8baOrRSwR7ai8I0V": {
         "aircraft": {
           "modeS": "A55B7F",
           "model": "GL7T",
@@ -620,20 +620,20 @@
             "lat": -18.0433,
             "lon": 178.559
           },
-          "scheduledTimeLocal": "2023-02-15 12:27+12:00"
+          "scheduledTimeUtc": "2023-02-15 00:27Z"
         },
         "departure": {
           "location": {
             "lat": 34.2098,
             "lon": -118.49
           },
-          "scheduledTimeLocal": "2023-02-14 05:04-08:00"
+          "scheduledTimeUtc": "2023-02-14 13:04Z"
         },
         "greatCircleDistance": {
           "km": 8842.049
         }
       },
-      "-NQbK_cxHomLRxq3qsmx": {
+      "-NQq8bab3kTL_xUxZW_q": {
         "aircraft": {
           "modeS": "A55B7F",
           "model": "GL7T",
@@ -644,14 +644,14 @@
             "lat": -18.0433,
             "lon": 178.559
           },
-          "scheduledTimeLocal": "2023-02-15 12:27+12:00"
+          "scheduledTimeUtc": "2023-02-15 00:27Z"
         },
         "departure": {
           "location": {
             "lat": 34.2098,
             "lon": -118.49
           },
-          "scheduledTimeLocal": "2023-02-14 05:04-08:00"
+          "scheduledTimeUtc": "2023-02-14 13:04Z"
         },
         "greatCircleDistance": {
           "km": 8842.049
@@ -661,7 +661,7 @@
   },
   "Michael Jordan": {
     "flights": {
-      "-NQbK_d4oL6KKoQHBHkt": {
+      "-NQq8bao_4NBoavc9elN": {
         "aircraft": {
           "modeS": "A21FE6",
           "model": "Gulfstream Aerospace V",
@@ -678,13 +678,13 @@
             "lat": 26.6832,
             "lon": -80.0956
           },
-          "scheduledTimeLocal": "2023-02-18 11:30-05:00"
+          "scheduledTimeUtc": "2023-02-18 16:30Z"
         },
         "greatCircleDistance": {
           "km": 293.604
         }
       },
-      "-NQbK_dBAZVvh6mKbxgq": {
+      "-NQq8bb0eocughchhATj": {
         "aircraft": {
           "modeS": "A21FE6",
           "model": "Gulfstream Aerospace V",
@@ -695,20 +695,20 @@
             "lat": 26.6832,
             "lon": -80.0956
           },
-          "scheduledTimeLocal": "2023-02-19 18:09-05:00"
+          "scheduledTimeUtc": "2023-02-19 23:09Z"
         },
         "departure": {
           "location": {
             "lat": 29.1799,
             "lon": -81.0581
           },
-          "scheduledTimeLocal": "2023-02-19 17:30-05:00"
+          "scheduledTimeUtc": "2023-02-19 22:30Z"
         },
         "greatCircleDistance": {
           "km": 293.604
         }
       },
-      "-NQbK_dNYHaCGd4iguni": {
+      "-NQq8bbHISDTbg4Z9hpS": {
         "aircraft": {
           "modeS": "A21FE6",
           "model": "Gulfstream Aerospace V",
@@ -725,7 +725,7 @@
             "lat": 26.6832,
             "lon": -80.0956
           },
-          "scheduledTimeLocal": "2023-02-20 10:33-05:00"
+          "scheduledTimeUtc": "2023-02-20 15:33Z"
         },
         "greatCircleDistance": {
           "km": 953.066
@@ -735,7 +735,7 @@
   },
   "Taylor Swift": {
     "flights": {
-      "-NQbK_dfvwDC95snhKcc": {
+      "-NQq8bbZyZKADEeOaSei": {
         "aircraft": {
           "modeS": "AC64C6",
           "model": "Dassault Falcon",
@@ -746,14 +746,14 @@
             "lat": 38.8903,
             "lon": -90.046
           },
-          "scheduledTimeLocal": "2022-10-22 06:44-05:00"
+          "scheduledTimeUtc": "2022-10-22 11:44Z"
         },
         "departure": {
           "location": {
             "lat": 36.1245,
             "lon": -86.6782
           },
-          "scheduledTimeLocal": "2022-10-22 06:13-05:00"
+          "scheduledTimeUtc": "2022-10-22 11:13Z"
         },
         "greatCircleDistance": {
           "km": 427.998
