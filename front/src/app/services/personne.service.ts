@@ -51,13 +51,21 @@ export class PersonneService {
             if (flightData.hasOwnProperty('departure') && flightData.hasOwnProperty('arrival')) {
               const departureTimeStr = flightData.departure.scheduledTimeUtc;
               const arrivalTimeStr = flightData.arrival.scheduledTimeUtc;
+              console.log('departureTimeStr:', departureTimeStr);
+              console.log('arrivalTimeStr:', arrivalTimeStr);
               if (departureTimeStr && arrivalTimeStr) {
-                const departureTime = new Date(departureTimeStr.replace(' ', 'T')).getTime();
-                const arrivalTime = new Date(arrivalTimeStr.replace(' ', 'T')).getTime();
+                const departureTime = new Date(departureTimeStr).getTime();
+                const arrivalTime = new Date(arrivalTimeStr).getTime();
+                console.log('departureTime:', departureTime);
+                console.log('arrivalTime:', arrivalTime);
                 const nbHoursMillis = arrivalTime - departureTime;
+                console.log('nbHoursMillis:', nbHoursMillis);
                 nbHeuresVol += Math.floor(nbHoursMillis / (1000 * 60 * 60));
+                console.log('nbHeuresVol:', nbHeuresVol);
               }
             }
+
+            console.log(nbHeuresVol);
             flights.push(flightData);
           }
         }
