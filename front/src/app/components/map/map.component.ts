@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { icon, Marker } from 'leaflet';
+import { PersonneService, Personne } from 'src/app/services/personne.service';
 
 import 'leaflet-routing-machine';
 import 'leaflet.geodesic';
@@ -12,6 +13,13 @@ import { GeodesicLine } from 'leaflet.geodesic';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements AfterViewInit {
+  listePersonne: Personne[] = this.personneService.getListePersonne();
+
+  constructor(
+    // Initialiser le PersonneService
+    private personneService: PersonneService
+  ) {}
+
   private map: L.Map;
   private departure_coord: L.Marker;
   private arrival_coord: L.Marker;
@@ -20,6 +28,8 @@ export class MapComponent implements AfterViewInit {
   private display_car: boolean;
 
   private initMap(): void {
+    console.log(this.listePersonne);
+
     this.map = L.map('map', {
       zoom: 0,
       scrollWheelZoom: false,
@@ -62,7 +72,7 @@ export class MapComponent implements AfterViewInit {
     );
   }
 
-  // Centre la vu de la carte sur un marker TODO a revoir pour utiliser peut-etre des coordonnées
+  // Centre la vu de la carte sur un marker TODO a revoir pour utiliser peut-être des coordonnées
   public centerView(marker: L.Marker): void {
     this.map.setView(marker.getLatLng(), 5);
   }
@@ -97,41 +107,34 @@ export class MapComponent implements AfterViewInit {
 
   // Méthode appelé quand une checkbox change d'état
   public toggleCheckbox(event: any) {
-    //   if (event.target.checked) {
-    //     // Si la checkbox est coché
-    //     switch (event.target.id) {
-    //       case 'voiture-checkbox':
-    //         //this.displayCar();
-    //         this.display_car = true;
-    //         break;
-    //       case 'jet-checkbox':
-    //         //this.displayJet();
-    //         this.display_jet = true;
-    //         break;
-    //     }
-    //   } else {
-    //     // Si la checkbox est décoché
-    //     switch (event.target.id) {
-    //       case 'voiture-checkbox':
-    //         //this.hideCar();
-    //         this.display_car = false;
-    //         this.map.remove();
-    //         this.initAll();
-    //         //if (this.display_jet) this.displayJet();
-    //         break;
-    //       case 'jet-checkbox':
-    //         this.display_jet = false;
-    //         this.map.remove();
-    //         this.initAll();
-    //         //if (this.display_car) this.displayCar();
-    //         break;
-    //     }
-    //   }
-    //   // do something else based on the checkbox status
+    if (event.target.checked) {
+      // Si la checkbox est coché
+      switch (event.target.id) {
+        case 'voiture-checkbox':
+          this.display_car = true;
+          break;
+        case 'jet-checkbox':
+          this.display_jet = true;
+          break;
+      }
+    } else {
+      // Si la checkbox est décoché
+      switch (event.target.id) {
+        case 'voiture-checkbox':
+          this.display_car = false;
+          break;
+        case 'jet-checkbox':
+          this.display_jet = false;
+          break;
+      }
+    }
+
+    this.initAll();
+    // do something else based on the checkbox status
   }
 
   // Créer un nouveau trajet sous forme de deux marker
-  // a partir de coordonnées passé en paramettre
+  // a partir de coordonnées passé en paramètre
   public newPath(
     departure_lat: number,
     departure_lng: number,
@@ -153,35 +156,28 @@ export class MapComponent implements AfterViewInit {
     return markers;
   }
 
-  // Affiche tout les trajet passé en paramettre
+  // Affiche tout les trajet passé en paramètre
   private displayPaths(PathsArray: (L.Routing.Control | L.Geodesic)[]): void {
     PathsArray.forEach((path) => {
-      path.addTo(this.map);
+      if (path instanceof L.Routing.Control) {
+        if (this.display_car) {
+          path.addTo(this.map);
+        }
+      } else if (path instanceof L.Geodesic) {
+        if (this.display_jet) {
+          path.addTo(this.map);
+        }
+      }
+
       if (path instanceof L.Routing.Control)
-        document
-          .getElementsByClassName('leaflet-top leaflet-right')[0]
-          .remove();
+        if (document.getElementsByClassName('leaflet-top leaflet-right')[0])
+          document
+            .getElementsByClassName('leaflet-top leaflet-right')[0]
+            .remove();
     });
   }
 
-  constructor() {}
-
   private initAll(): void {
-    this.initMap();
-    this.setDeparture(48.2, 2.3522); // Paris
-    //this.setArrival(51.5074, -0.1278); // Londre
-    this.setArrival(40.712784, -74.005941); // New York
-    this.centerView(this.departure_coord);
-
-    // if (this.display_jet) this.displayJet();
-
-    // if (this.display_car) this.displayCar();
-  }
-
-  ngAfterViewInit(): void {
-    this.display_car = false;
-    this.display_jet = true;
-
     this.initMap();
 
     let Paths: (L.Routing.Control | GeodesicLine)[] = [];
@@ -197,5 +193,16 @@ export class MapComponent implements AfterViewInit {
     });
 
     this.displayPaths(Paths);
+
+    this.map.eachLayer((layer) => {
+      console.log(layer);
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.display_car = true;
+    this.display_jet = true;
+
+    this.initAll();
   }
 }
