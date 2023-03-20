@@ -80,3 +80,8 @@ header {
     width: 100%;
     height: 5vh;
 }
+
+h1 {
+    font-family: "Amaranth";
+    text-align: center;
+}

@@ -6,6 +6,7 @@
   height: 50vh;
   overflow-x: hidden;
   margin-top: 1%;
+  border-radius: 1rem;
 }
 
 .leaflet-routing-alt {
@@ -42,12 +43,15 @@ div.leaflet-top.leaflet-right {
   display: none;
 }
 
-#map-container {
-  border-top-left-radius: 2em;
-  border-top-right-radius: 2em;
-}
 
 #jet-owner-select {
   border-radius: 0.5em;
   width: 20vw;
+}
+
+
+.container {
+  background-color: red;
+  border-radius: 1rem;
+  padding: 1vh 1vh 2vh 1vh;
 }
