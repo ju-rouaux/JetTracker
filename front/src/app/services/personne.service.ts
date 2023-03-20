@@ -63,7 +63,7 @@ export class PersonneService {
             flights.push(flightData);
           }
         }
-        co2 = distanceParcourue * 0.49 *  1,609;
+        co2 = distanceParcourue * 0.49 * 1, 609;
         const nameParts = personneKey.split(' ');
         const prenom = nameParts[0];
         const nom = nameParts.slice(1).join(' ');
@@ -73,6 +73,7 @@ export class PersonneService {
           existingPersonne.nbHeuresVol = data.nbHeuresVol;
           existingPersonne.distanceParcourue = distanceParcourue;
           existingPersonne.immatriculation = immat;
+          existingPersonne.vols = flights;
         } else {
           const personne = new Personne(
             this.personnes.length,
@@ -82,7 +83,8 @@ export class PersonneService {
             co2,
             nbHeuresVol,
             distanceParcourue,
-            immat
+            immat,
+            flights
           );
           this.personnes.push(personne);
         }
@@ -143,6 +145,7 @@ export class Personne {
     public nbHeuresVol?: number,
     public distanceParcourue?: number,
     public immatriculation?: string[],
+    public vols?: Flight[],
   ) {
   }
 }
