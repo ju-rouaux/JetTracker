@@ -21,6 +21,7 @@ export class MapComponent implements AfterViewInit {
   ) {}
 
   private map: L.Map;
+  private Flight: (L.Routing.Control | GeodesicLine)[] = [];
   private departure_coord: L.Marker;
   private arrival_coord: L.Marker;
   private geodesic_path: L.Geodesic;
@@ -28,8 +29,6 @@ export class MapComponent implements AfterViewInit {
   private display_car: boolean;
 
   private initMap(): void {
-    console.log(this.listePersonne);
-
     this.map = L.map('map', {
       zoom: 0,
       scrollWheelZoom: false,
@@ -58,18 +57,6 @@ export class MapComponent implements AfterViewInit {
     Marker.prototype.options.icon = iconDefault;
 
     tiles.addTo(this.map);
-  }
-
-  public setDeparture(lat: number, lng: number): void {
-    this.departure_coord = L.marker([lat, lng], { draggable: false }).addTo(
-      this.map
-    );
-  }
-
-  public setArrival(lat: number, lng: number): void {
-    this.arrival_coord = L.marker([lat, lng], { draggable: false }).addTo(
-      this.map
-    );
   }
 
   // Centre la vu de la carte sur un marker TODO a revoir pour utiliser peut-être des coordonnées
@@ -157,19 +144,19 @@ export class MapComponent implements AfterViewInit {
   }
 
   // Affiche tout les trajet passé en paramètre
-  private displayPaths(PathsArray: (L.Routing.Control | L.Geodesic)[]): void {
-    PathsArray.forEach((path) => {
-      if (path instanceof L.Routing.Control) {
+  private displayPaths(FlightArray: (L.Routing.Control | L.Geodesic)[]): void {
+    FlightArray.forEach((Flight) => {
+      if (Flight instanceof L.Routing.Control) {
         if (this.display_car) {
-          path.addTo(this.map);
+          Flight.addTo(this.map);
         }
-      } else if (path instanceof L.Geodesic) {
+      } else if (Flight instanceof L.Geodesic) {
         if (this.display_jet) {
-          path.addTo(this.map);
+          Flight.addTo(this.map);
         }
       }
 
-      if (path instanceof L.Routing.Control)
+      if (Flight instanceof L.Routing.Control)
         if (document.getElementsByClassName('leaflet-top leaflet-right')[0])
           document
             .getElementsByClassName('leaflet-top leaflet-right')[0]
@@ -177,22 +164,35 @@ export class MapComponent implements AfterViewInit {
     });
   }
 
+  private addFlight(
+    departure_lat: number,
+    departure_lng: number,
+    arrival_lat: number,
+    arrival_lng: number
+  ): void {
+    let marker;
+    marker = this.newPath(
+      departure_lat,
+      departure_lng,
+      arrival_lat,
+      arrival_lng
+    );
+
+    this.Flight.push(this.addCarPath(marker[0], marker[1]));
+  }
+
+  private setSelector(): void {
+    let selector = document.getElementById('selector');
+    let select = document.createElement('select');
+  }
+
   private initAll(): void {
     this.initMap();
 
-    let Paths: (L.Routing.Control | GeodesicLine)[] = [];
     let Markers = [];
 
     Markers.push(this.newPath(48.2, 2.3522, 40.712784, -74.005941));
-
     Markers.push(this.newPath(42.2, 1.3522, 40.712784, -34.005941));
-
-    Markers.forEach((marker) => {
-      Paths.push(this.addCarPath(marker[0], marker[1]));
-      Paths.push(this.addJetPath(marker[0], marker[1]));
-    });
-
-    this.displayPaths(Paths);
 
     this.map.eachLayer((layer) => {
       console.log(layer);
@@ -202,6 +202,17 @@ export class MapComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.display_car = true;
     this.display_jet = true;
+
+    this.listePersonne.forEach((personne) => {
+      personne.vols?.forEach((vol) => {
+        this.addFlight(
+          vol.departure.location.lat,
+          vol.departure.location.lon,
+          vol.arrival.location.lat,
+          vol.arrival.location.lon
+        );
+      });
+    });
 
     this.initAll();
   }
