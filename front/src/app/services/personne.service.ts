@@ -1,177 +1,151 @@
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonneService {
 
-  constructor() { }
+  personnes: Personne[] = [];
+
+  constructor(private http: HttpClient) {
+    this.chargerPersonnes();
+  }
 
   /**
-   * Retourne la liste de toutes les personnes.
-   * @returns la liste de toutes les personnes.
+
+   Retourne la liste de toutes les personnes.
+
+   @returns la liste de toutes les personnes.
    */
-  getListePersonne() : Personne[] {
-    return PERSONNES;
+  async chargerPersonnes(): Promise<Personne[]> {
+    try {
+      const jsonData = await this.http.get<any>('/assets/parse.json').toPromise();
+      for (const personneKey of Object.keys(jsonData)) {
+        const data = jsonData[personneKey];
+        const jets: Jet[] = [];
+        const flights: Flight[] = [];
+        const immat: string[] = [];
+        let nbHeuresVol = 0;
+        let distanceParcourue = 0;
+        let co2 = 0;
+        if (data.jets) {
+          for (const jetKey of Object.keys(data.jets)) {
+            const jetData = data.jets[jetKey];
+            for (const innerJetKey of Object.keys(jetData)) {
+              const jet = jetData[innerJetKey];
+              for (const innerInnerJetKey of Object.keys(jet)) {
+                immat.push(innerInnerJetKey)
+              }
+              jets.push(jet);
+            }
+          }
+        }
+        if (data.flights) {
+          for (const flightKey of Object.keys(data.flights)) {
+            const flightData = data.flights[flightKey];
+            const greatCircleDistance = flightData.greatCircleDistance?.km;
+            if (greatCircleDistance) {
+              distanceParcourue += greatCircleDistance;
+            }
+            if (flightData.hasOwnProperty('departure') && flightData.hasOwnProperty('arrival')) {
+              const departureTimeStr = flightData.departure.scheduledTimeUtc;
+              const arrivalTimeStr = flightData.arrival.scheduledTimeUtc;
+              if (departureTimeStr && arrivalTimeStr) {
+                const departureTime = new Date(departureTimeStr).getTime();
+                const arrivalTime = new Date(arrivalTimeStr).getTime();
+                const nbHoursMillis = arrivalTime - departureTime;
+                nbHeuresVol += Math.floor(nbHoursMillis / (1000 * 60));
+              }
+            }
+
+            console.log(nbHeuresVol);
+            flights.push(flightData);
+          }
+        }
+        co2 = distanceParcourue * 0.49 * 1, 609;
+        const nameParts = personneKey.split(' ');
+        const prenom = nameParts[0];
+        const nom = nameParts.slice(1).join(' ');
+        const existingPersonne = this.personnes.find(p => p.prenom === prenom && p.nom === nom);
+        if (existingPersonne) {
+          existingPersonne.emission = data.emission;
+          existingPersonne.nbHeuresVol = data.nbHeuresVol;
+          existingPersonne.distanceParcourue = distanceParcourue;
+          existingPersonne.immatriculation = immat;
+          existingPersonne.vols = flights;
+        } else {
+          const personne = new Personne(
+            this.personnes.length,
+            prenom,
+            nom,
+            "/assets/img/" + prenom + ".jpg",
+            co2,
+            nbHeuresVol,
+            distanceParcourue,
+            immat,
+            flights
+          );
+          this.personnes.push(personne);
+        }
+      }
+      return this.personnes;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
+
+  getListePersonne() {
+    return this.personnes;
+  }
+
+}
+
+interface Jet {
+  max_speed: string | null;
+  model: string | null;
+}
+
+interface Flight {
+  aircraft: {
+    modeS: string;
+    model: string;
+    reg: string;
+  };
+  arrival: {
+    location: {
+      lat: number;
+      lon: number;
+    };
+  };
+  departure: {
+    location: {
+      lat: number;
+      lon: number;
+    };
+    scheduledTimeLocal: string;
+  };
+  greatCircleDistance?: {
+    km: number;
+  };
 }
 
 /**
- * Contient toutes les données d'une personne.
+
+ Contient toutes les données d'une personne.
  */
 export class Personne {
-  id: number;
-  prenom: string;
-  nom: string;
-  imageLocation: string;
-  // Insérer d'autres données à votre guise
-  emission: number; //temporaire
-  nbHeuresVol: number; //temporaire
-  distanceParcourue: number; //temporaire
-  immatriculation : Array<String>;
-
-
-}
-
-const PERSONNES: Personne[] = [
-  {
-    id: 0,
-    prenom: "Elon",
-    nom: "Musk",
-    imageLocation: "/assets/elon.jpg",
-    emission: 542.5,
-    nbHeuresVol : 467,
-    distanceParcourue : 542,
-    immatriculation : ["N628TS", "N272BG", "N502SX"]
-  },
-  {
-    id: 1,
-    prenom: "Bill",
-    nom: "Gates",
-    imageLocation: "/assets/bill.jpg",
-    emission: 125.7,
-    nbHeuresVol : 576,
-    distanceParcourue : 542,
-    immatriculation : ["N194WM", "N887WM"]
-  },
-  {
-    id: 2,
-    prenom: "Michael",
-    nom: "Jordan",
-    imageLocation: "/assets/michael.jpg",
-    emission: 523.1,
-    nbHeuresVol : 572,
-    distanceParcourue : 536,
-    immatriculation : ["N236MJ"]
-  },
-  {
-    id : 3,
-    prenom: "Taylor",
-    nom : "Swift",
-    imageLocation: "/assets/taylor.jpg",
-    emission: 15.231,
-    nbHeuresVol : 79,
-    distanceParcourue : 327,
-    immatriculation : ["N898TS"]
-  },
-  {
-    id : 4,
-    prenom : "Jim",
-    nom : "Carrey",
-    imageLocation: "/assets/jim.jpg",
-    emission: 543.1,
-    nbHeuresVol : 92,
-    distanceParcourue : 17,
-    immatriculation : ["N162JC"]
-  },{
-    id : 5,
-    prenom : "Alan",
-    nom : "Sugar",
-    imageLocation: "/assets/alan.jpg",
-    emission: 0,
-    nbHeuresVol : 0,
-    distanceParcourue : 0.0,
-    immatriculation : ["G-SUGA"]
-  },
-  {
-    id : 6,
-    prenom : "John",
-    nom : "Travolta",
-    imageLocation: "/assets/john.jpg",
-    emission : 532,
-    nbHeuresVol : 574,
-    distanceParcourue : 538,
-    immatriculation : ["N707JT"]
-
-  },
-  {
-    id : 7,
-    prenom : "Donald",
-    nom : "Trump",
-    imageLocation: "/assets/donald.jpg",
-    emission : 52,
-    nbHeuresVol : 573,
-    distanceParcourue : 538,
-    immatriculation : ["N757AF"]
-  },
-  {
-    id : 8,
-    prenom : "Roman",
-    nom : "Abramovich",
-    imageLocation: "/assets/roman.jpg",
-    emission : 0,
-    nbHeuresVol : 0,
-    distanceParcourue : 0.0,
-    immatriculation : ["P4-MES"]
-  },
-  {
-    id : 9,
-    prenom : "Magic",
-    nom : "Johnson",
-    imageLocation: "/assets/magic.jpg",
-    emission : 0,
-    nbHeuresVol : 0,
-    distanceParcourue : 0.0,
-    immatriculation : ["N32MJ"]
-  },
-  {
-    id : 10,
-    prenom : "Matt",
-    nom : "Damon",
-    imageLocation: "/assets/matt.jpg",
-    emission : 25,
-    nbHeuresVol : 765,
-    distanceParcourue : 542,
-    immatriculation : ["N444WT"]
-  },
-  {
-    id : 11,
-    prenom : "",
-    nom : "Windsors",
-    imageLocation: "/assets/windosors.jpg",
-    emission : 57,
-    nbHeuresVol : 2,
-    distanceParcourue : 100.0,
-    immatriculation : ["G-XXEB"]
-  },
-  {
-    id : 12,
-    prenom : "Harrison",
-    nom : "Ford",
-    imageLocation: "/assets/harrison.jpg",
-    emission : 65,
-    nbHeuresVol : 87,
-    distanceParcourue : 542,
-    immatriculation : ["LX-DEC"]
-  },
-  {
-    id : 13,
-    prenom : "",
-    nom : "Jay-Z",
-    imageLocation: "/assets/jayz.jpg",
-    emission : 982,
-    nbHeuresVol : 10020,
-    distanceParcourue : 54200,
-    immatriculation : ["N444SC"]
+  constructor(
+    public id: number,
+    public prenom: string,
+    public nom: string,
+    public imageLocation?: string,
+    public emission?: number,
+    public nbHeuresVol?: number,
+    public distanceParcourue?: number,
+    public immatriculation?: string[],
+    public vols?: Flight[],
+  ) {
   }
-]
+}

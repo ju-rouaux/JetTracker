@@ -1,16 +1,26 @@
 <div class="container">
   <div class="row">
-    <div class ="col-xl-3 col-sm-4" id="panneau-labels">
+    <div class="col-xl-3 col-sm-4" id="panneau-labels">
       <div *ngFor="let personne of listePersonnes; let i = index" class="entree form-check form-check-inline">
         <input class="form-check-input" [id]="'inlineCheckbox'+i" type="checkbox" [value]="personne.id"
-          (click)="onCheckboxChange($event, i)">
+               (click)="onCheckboxChange($event, i)">
         <label class="form-check-label" [for]="'inlineCheckbox'+i">{{ personne.prenom + ' ' + personne.nom }}</label>
       </div>
+
+      <hr>
+
+      <div *ngFor="let labelOption of labelOptions">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [id]="'labelCheckbox'+labelOption.datasetIndex"
+                 [value]="labelOption.datasetIndex" [checked]="selectedLabels.includes(labelOption.datasetIndex)"
+                 (change)="onLabelChange($event)">
+          <label class="form-check-label" [for]="'labelCheckbox'+labelOption.datasetIndex">{{ labelOption.label }}</label>
+        </div>
+      </div>
     </div>
-  
-  
+
     <div class="col-xl-9 col-sm-8" id="panneau-graphique">
-      <canvas id="monGraphique">{{ chart }}</canvas>
+      <canvas id="monGraphique"></canvas>
     </div>
   </div>
 </div>
