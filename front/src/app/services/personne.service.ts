@@ -124,7 +124,7 @@ interface Flight {
       lat: number;
       lon: number;
     };
-    scheduledTimeLocal: string;
+    scheduledTimeUtc: string;
   };
   greatCircleDistance?: {
     km: number;
