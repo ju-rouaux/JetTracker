@@ -63,7 +63,7 @@ export class PersonneService {
             flights.push(flightData);
           }
         }
-        co2 = distanceParcourue * 0.49;
+        co2 = distanceParcourue * 0.49 *  1,609;
         const nameParts = personneKey.split(' ');
         const prenom = nameParts[0];
         const nom = nameParts.slice(1).join(' ');
