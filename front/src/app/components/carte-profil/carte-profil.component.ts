@@ -12,8 +12,10 @@ export class CarteProfilComponent {
 
   // Récupérer la liste des personnes
     async chargerListePersonne(){
-    this.listePersonne = await this.personneService.getListePersonne();
-  }
+    this.listePersonne = this.personneService.getListePersonne();
+    console.log("Liste personnes : " + this.listePersonne);
+
+    }
   constructor(
     // Initialiser le PersonneService
     private personneService: PersonneService

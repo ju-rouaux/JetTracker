@@ -35,7 +35,7 @@
 }
 
 #bg-image {
-    background-image: url("../assets/sky.jpg");
+    background-image: url("../assets/img/sky.jpg");
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
