@@ -55,7 +55,7 @@ export class PersonneService {
                 const departureTime = new Date(departureTimeStr).getTime();
                 const arrivalTime = new Date(arrivalTimeStr).getTime();
                 const nbHoursMillis = arrivalTime - departureTime;
-                nbHeuresVol += Math.floor(nbHoursMillis / (1000 * 60 * 60));
+                nbHeuresVol += Math.floor(nbHoursMillis / (1000 * 60));
               }
             }
 
