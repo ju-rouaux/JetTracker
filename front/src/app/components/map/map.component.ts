@@ -188,21 +188,25 @@ export class MapComponent implements AfterViewInit {
 
   private initAll(): void {
     this.initMap();
+    this.displayPaths(this.Flight);
+    // let Markers = [];
 
-    let Markers = [];
+    // Markers.push(this.newPath(48.2, 2.3522, 40.712784, -74.005941));
+    // Markers.push(this.newPath(42.2, 1.3522, 40.712784, -34.005941));
 
-    Markers.push(this.newPath(48.2, 2.3522, 40.712784, -74.005941));
-    Markers.push(this.newPath(42.2, 1.3522, 40.712784, -34.005941));
+    // this.map.eachLayer((layer) => {
+    //   console.log(layer);
+    // });
 
-    this.map.eachLayer((layer) => {
-      console.log(layer);
+    this.Flight.forEach((flight) => {
+      console.log(flight);
     });
   }
 
-  ngAfterViewInit(): void {
+  async ngOnInit() {
     this.display_car = true;
     this.display_jet = true;
-
+    
     this.listePersonne.forEach((personne) => {
       personne.vols?.forEach((vol) => {
         this.addFlight(
@@ -211,9 +215,20 @@ export class MapComponent implements AfterViewInit {
           vol.arrival.location.lat,
           vol.arrival.location.lon
         );
+
+        console.log(vol.departure.location.lat+";"+
+          vol.departure.location.lon+"  "+
+          vol.arrival.location.lat+";"+
+          vol.arrival.location.lon
+        );
       });
     });
 
     this.initAll();
+  }
+
+
+  ngAfterViewInit(): void {
+    // On initialise la carte une fois que le DOM est chargé
   }
 }
