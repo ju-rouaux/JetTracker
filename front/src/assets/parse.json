@@ -169,24 +169,6 @@
       }
     }
   },
-  "Donald Trump": {
-    "flights": {
-      "-NQq8bWDBgffyGO9xDTz": {
-        "aircraft": {
-          "modeS": "AA3410",
-          "model": "Boeing 757",
-          "reg": "N757AF"
-        },
-        "departure": {
-          "location": {
-            "lat": 38.8521,
-            "lon": -77.0377
-          },
-          "scheduledTimeUtc": "2023-03-10 16:32Z"
-        }
-      }
-    }
-  },
   "Elon Musk": {
     "flights": {
       "-NQq8bWd80jDrfFpy-sV": {
