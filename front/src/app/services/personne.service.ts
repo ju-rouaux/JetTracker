@@ -9,7 +9,9 @@ export class PersonneService {
   personnes: Personne[] = [];
 
   constructor(private http: HttpClient) {
-    this.chargerPersonnes();
+    this.chargerPersonnes().then(personnes => {
+      console.log(`Loaded ${personnes.length} people successfully.`);
+    });
   }
 
   /**
@@ -58,8 +60,6 @@ export class PersonneService {
                 nbHeuresVol += Math.floor(nbHoursMillis / (1000 * 60));
               }
             }
-
-            console.log(nbHeuresVol);
             flights.push(flightData);
           }
         }
@@ -96,7 +96,7 @@ export class PersonneService {
     }
   }
 
-  getListePersonne() {
+  getListePersonne(): Personne[] {
     return this.personnes;
   }
 
@@ -147,5 +147,13 @@ export class Personne {
     public immatriculation?: string[],
     public vols?: Flight[],
   ) {
+  }
+
+  getVols(){
+    return this.vols;
+  }
+
+  getNom(){
+    return this.nom;
   }
 }
