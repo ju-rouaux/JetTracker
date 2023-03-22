@@ -126,6 +126,7 @@ export interface Flight {
       lat: number;
       lon: number;
     };
+    scheduledTimeUtc: string;
   };
   departure: {
     location: {
