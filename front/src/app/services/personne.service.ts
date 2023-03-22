@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +7,12 @@ import {Injectable} from '@angular/core';
 export class PersonneService {
 
   personnes: Personne[] = [];
+  personnes_chargees : boolean = false;
 
   constructor(private http: HttpClient) {
-    this.chargerPersonnes();
+    this.chargerPersonnes().then(personnes => {
+      console.log(`Loaded ${personnes.length} people successfully.`);
+    });
   }
 
   /**
@@ -58,8 +61,6 @@ export class PersonneService {
                 nbHeuresVol += Math.floor(nbHoursMillis / (1000 * 60));
               }
             }
-
-            console.log(nbHeuresVol);
             flights.push(flightData);
           }
         }
@@ -96,18 +97,18 @@ export class PersonneService {
     }
   }
 
-  getListePersonne() {
+  getListePersonne(): Personne[] {
     return this.personnes;
   }
 
 }
 
-interface Jet {
+export interface Jet {
   max_speed: string | null;
   model: string | null;
 }
 
-interface Flight {
+export interface Flight {
   aircraft: {
     modeS: string;
     model: string;
@@ -124,7 +125,7 @@ interface Flight {
       lat: number;
       lon: number;
     };
-    scheduledTimeLocal: string;
+    scheduledTimeUtc: string;
   };
   greatCircleDistance?: {
     km: number;
@@ -147,5 +148,13 @@ export class Personne {
     public immatriculation?: string[],
     public vols?: Flight[],
   ) {
+  }
+
+  getVols(){
+    return this.vols;
+  }
+
+  getNom(){
+    return this.nom;
   }
 }
