@@ -80,7 +80,7 @@ export class PersonneService {
             this.personnes.length,
             prenom,
             nom,
-            "/assets/img/" + prenom + ".jpg",
+            "/assets/img/" + prenom + "_" + nom + ".jpg",
             co2,
             nbHeuresVol,
             distanceParcourue,
