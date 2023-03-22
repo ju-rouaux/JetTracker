@@ -70,6 +70,7 @@ export class PersonneService {
         const nom = nameParts.slice(1).join(' ');
         const existingPersonne = this.personnes.find(p => p.prenom === prenom && p.nom === nom);
         if (existingPersonne) {
+          console.log("old emission :" + existingPersonne.emission);
           // @ts-ignore
           existingPersonne.emission += co2;
           // @ts-ignore
