@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { icon, Marker } from 'leaflet';
-import { PersonneService, Personne } from 'src/app/services/personne.service';
+import { PersonneService, Personne, Flight} from 'src/app/services/personne.service';
 
 import 'leaflet-routing-machine';
 import 'leaflet.geodesic';
@@ -13,7 +13,7 @@ import { GeodesicLine } from 'leaflet.geodesic';
   styleUrls: ['./map.component.css'],
 })
 
-export class MapComponent implements OnInit {
+export class MapComponent { //implements OnInit {
  
 
   constructor(
@@ -189,6 +189,8 @@ export class MapComponent implements OnInit {
 
   private initAll(): void {
     this.initMap();
+
+    this.addFlight(48.2, 2.3522, 40.712784, -74.005941);
     this.displayPaths(this.Flight);
     // let Markers = [];
 
@@ -198,6 +200,7 @@ export class MapComponent implements OnInit {
     // this.map.eachLayer((layer) => {
     //   console.log(layer);
     // });
+
 
     this.Flight.forEach((flight) => {
       console.log(flight);
@@ -212,18 +215,31 @@ export class MapComponent implements OnInit {
 
     data.forEach((personne) => {
       personne.vols?.forEach((vol) => {
-        this.addFlight(
-                vol.departure.location.lat,
-                vol.departure.location.lon,
-                vol.arrival.location.lat,  
-                vol.arrival.location.lon
-              );
+        // console.log(vol?.arrival?.location);
 
-        console.log(vol.departure.location.lat+";"+
-          vol.departure.location.lon+"  "+
-          vol.arrival.location.lat+";"+
-          vol.arrival.location.lon
-        );
+        let dep_lat = vol?.departure?.location.lat;
+        let dep_lon = vol?.departure?.location.lon;
+        let arr_lat = vol?.arrival?.location.lat;
+        let arr_lon = vol?.arrival?.location.lon
+
+        console.log("Departure : "+dep_lat+";"+dep_lon);
+        console.log("Arrival : "+arr_lat+";"+arr_lon);
+
+
+        // this.addFlight(
+        //         dep_lat,
+        //         dep_lon,
+        //         arr_lat,
+        //         arr_lon
+        //       );
+
+        // console.log(vol.departure.location.lat+";"+
+        //   vol.departure.location.lon+"  "+
+        //   vol.arrival.location.lat+";"+
+        //   vol.arrival.location.lon
+        // );
+
+        //console.log(typeof vol.departure.location.lat);
       })
     });
       
@@ -247,7 +263,7 @@ export class MapComponent implements OnInit {
     //   });
     // });
 
-    this.initAll();
+    // this.initAll();
   }
 
 }
