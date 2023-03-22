@@ -4,11 +4,11 @@ import { PersonneService, Personne } from 'src/app/services/personne.service';
 @Component({
   selector: 'app-selecteur-personne',
   templateUrl: './selecteur-personne.component.html',
-  styleUrls: ['./selecteur-personne.component.css']
+  styleUrls: ['./selecteur-personne.component.css'],
 })
 export class SelecteurPersonneComponent implements OnInit {
   // Récupérer la liste des personnes
-  listePersonne : Personne[] = [];
+  listePersonne: Personne[] = [];
 
   constructor(
     // Initialiser le PersonneService
@@ -21,8 +21,7 @@ export class SelecteurPersonneComponent implements OnInit {
   }
 
   // Lorsqu'un élément de la liste est sélectionné
-  onSelected(idPersStr : string) {
+  onSelected(idPersStr: string) {
     let id = Number.parseInt(idPersStr);
   }
-
 }
