@@ -16,10 +16,8 @@ export class CarrouselComponent implements OnInit {
 
   // Récupérer la liste des personnes
   async chargerListePersonne(){
-    this.personneService.chargerPersonnes().then((listePersonne) => {
-      this.listePersonne = listePersonne;
-      this.derniers_vols();
-    });
+    this.listePersonne = await this.personneService.getListePersonne()
+    this.derniers_vols();
   }
 
   async ngOnInit() {
