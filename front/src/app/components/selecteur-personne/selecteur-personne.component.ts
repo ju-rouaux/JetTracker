@@ -23,7 +23,7 @@ export class SelecteurPersonneComponent {
 
 
     console.log("Liste personnes " + this.listePersonne)
-    console.log(this.listePersonne[0].getNom())
+    // console.log(this.listePersonne[0].getNom())
   }
 
   // Lorsqu'un élément de la liste est sélectionné
