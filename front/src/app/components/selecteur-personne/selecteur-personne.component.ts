@@ -16,16 +16,13 @@ export class SelecteurPersonneComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.personneService.chargerPersonnes().then(( lp) => {
-      this.listePersonne = lp;
-    });
+    this.listePersonne = await this.personneService.getListePersonne();
 
   }
 
   // Lorsqu'un élément de la liste est sélectionné
   onSelected(idPersStr : string) {
     let id = Number.parseInt(idPersStr);
-    console.log(this.listePersonne[id]);
   }
 
 }
