@@ -6,7 +6,7 @@
 <div class="espacement"></div>
 
         <!-- Carrousel -->
-        <h1>Derniers vols</h1>
+        <h1 id="titre-carrousel">Derniers vols</h1>
         <div class="espacement"></div>
         <app-carrousel></app-carrousel>
     </div>
@@ -14,20 +14,26 @@
 
 <div class="espacement"></div>
 
-<h1>Le top des consommateurs</h1>
+<h1 class="titre-composant" id="titre-carte-profil">Le top des consommateurs</h1>
 <app-carte-profil></app-carte-profil>
 
 <div class="espacement"></div>
 
-<h1>Visualiser les derniers trajets</h1>
+<h1 class="titre-composant" id="titre-map">Visualiser les derniers trajets</h1>
 <app-map></app-map>
 
 <div class="espacement"></div>
 
-<h1>Comparer les personnalités</h1>
+<h1 class="titre-composant" id="titre-graphique">Comparer les personnalités</h1>
 <app-graphique></app-graphique>
 
 <div class="espacement"></div>
+
+
+<div id="pied-de-page">
+    <p>© JetTraker 2023   |   <a href="">Nous contacter</a>   |   <a href="">Mentions Légales</a>   |   <a href="">Politique en matière de cookies </a>   |   <a href="">Confidentialité</a> </p>
+
+</div>
 
 <!-- Routing -->
 <router-outlet></router-outlet>
