@@ -9,5 +9,8 @@
   }
 
 body {
+  background-image: url("./assets/img/bg_airplaines.png");
+  background-repeat:repeat;
+  background-size: 40vh;
   background-color: #f8feff !important;
 }
