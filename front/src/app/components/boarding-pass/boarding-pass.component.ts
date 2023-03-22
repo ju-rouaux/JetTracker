@@ -64,12 +64,18 @@ export class BoardingPassComponent implements OnInit {
         this.immatriculation = vol.aircraft.model;
         this.depart_aeroport  = "XXX";
         d = new Date(vol.departure.scheduledTimeUtc)
-        this.depart_heure  = d.getHours().toString() + "h" + d.getMinutes().toString();
-        this.depart_date = d.getDay().toString() + "/" + d.getMonth().toString() + "/" + d.getFullYear().toString();
+        this.depart_heure  = this.formatNumber(d.getHours()) + "h" + this.formatNumber(d.getMinutes());
+        this.depart_date = this.formatNumber(d.getDay()) + "/" + this.formatNumber(d.getMonth()) + "/" + this.formatNumber(d.getFullYear());
         this.arrivee_aeroport = "XXX";
         d = new Date(vol.arrival.scheduledTimeUtc)
-        this.arrivee_heure = d.getHours().toString() + "h" + d.getMinutes().toString();
-        this.arrivee_date = d.getDay().toString() + "/" + d.getMonth().toString() + "/" + d.getFullYear().toString();
+        this.arrivee_heure = this.formatNumber(d.getHours()) + "h" + this.formatNumber(d.getMinutes());
+        this.arrivee_date = this.formatNumber(d.getDay()) + "/" + this.formatNumber(d.getMonth()) + "/" + this.formatNumber(d.getFullYear());
     }
 
+    formatNumber(num : number) {
+        return num.toLocaleString('fr-FR', {
+            minimumIntegerDigits: 2,
+            useGrouping: false
+        });
+    }
 }
