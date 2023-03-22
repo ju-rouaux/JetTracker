@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { icon, Marker } from 'leaflet';
 import { PersonneService, Personne } from 'src/app/services/personne.service';
@@ -12,8 +12,9 @@ import { GeodesicLine } from 'leaflet.geodesic';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
 })
-export class MapComponent implements AfterViewInit {
-  listePersonne: Personne[] = this.personneService.getListePersonne();
+
+export class MapComponent implements OnInit {
+ 
 
   constructor(
     // Initialiser le PersonneService
@@ -207,28 +208,46 @@ export class MapComponent implements AfterViewInit {
     this.display_car = true;
     this.display_jet = true;
     
-    this.listePersonne.forEach((personne) => {
+    var data = await this.personneService.getListePersonne();
+
+    data.forEach((personne) => {
       personne.vols?.forEach((vol) => {
         this.addFlight(
-          vol.departure.location.lat,
-          vol.departure.location.lon,
-          vol.arrival.location.lat,
-          vol.arrival.location.lon
-        );
+                vol.departure.location.lat,
+                vol.departure.location.lon,
+                vol.arrival.location.lat,  
+                vol.arrival.location.lon
+              );
 
         console.log(vol.departure.location.lat+";"+
           vol.departure.location.lon+"  "+
           vol.arrival.location.lat+";"+
           vol.arrival.location.lon
         );
-      });
+      })
     });
+      
+    
+
+    
+    // this.listePersonne.forEach((personne) => {
+    //   personne.vols?.forEach((vol) => {
+    //     this.addFlight(
+    //       vol.departure.location.lat,
+    //       vol.departure.location.lon,
+    //       vol.arrival.location.lat,  
+    //       vol.arrival.location.lon
+    //     );
+
+    //     console.log(vol.departure.location.lat+";"+
+    //       vol.departure.location.lon+"  "+
+    //       vol.arrival.location.lat+";"+
+    //       vol.arrival.location.lon
+    //     );
+    //   });
+    // });
 
     this.initAll();
   }
 
-
-  ngAfterViewInit(): void {
-    // On initialise la carte une fois que le DOM est chargé
-  }
 }
