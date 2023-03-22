@@ -70,9 +70,12 @@ export class PersonneService {
         const nom = nameParts.slice(1).join(' ');
         const existingPersonne = this.personnes.find(p => p.prenom === prenom && p.nom === nom);
         if (existingPersonne) {
-          existingPersonne.emission = data.emission;
-          existingPersonne.nbHeuresVol = data.nbHeuresVol;
-          existingPersonne.distanceParcourue = distanceParcourue;
+          // @ts-ignore
+          existingPersonne.emission += co2;
+          // @ts-ignore
+          existingPersonne.nbHeuresVol += nbHeuresVol;
+          // @ts-ignore
+          existingPersonne.distanceParcourue += distanceParcourue;
           existingPersonne.immatriculation = immat;
           existingPersonne.vols = flights;
         } else {
@@ -80,7 +83,7 @@ export class PersonneService {
             this.personnes.length,
             prenom,
             nom,
-            "/assets/img/" + prenom + ".jpg",
+            "/assets/img/" + prenom + "_" + nom + ".jpg",
             co2,
             nbHeuresVol,
             distanceParcourue,
@@ -156,13 +159,5 @@ export class Personne {
     public immatriculation?: string[],
     public vols?: Flight[],
   ) {
-  }
-
-  getVols(){
-    return this.vols;
-  }
-
-  getNom(){
-    return this.nom;
   }
 }
