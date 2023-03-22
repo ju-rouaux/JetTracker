@@ -13,7 +13,7 @@ import { GeodesicLine } from 'leaflet.geodesic';
   styleUrls: ['./map.component.css'],
 })
 
-export class MapComponent { //implements OnInit {
+export class MapComponent {
  
 
   constructor(
@@ -207,12 +207,12 @@ export class MapComponent { //implements OnInit {
     });
   }
 
-  async ngOnInit() {
+  public async Initialize(id: number): Promise<void> {
     this.display_car = true;
     this.display_jet = true;
     
     var data = await this.personneService.getListePersonne();
-
+    var lesVols: number[][] = [];
     data.forEach((personne) => {
       personne.vols?.forEach((vol) => {
         // console.log(vol?.arrival?.location);
@@ -224,7 +224,9 @@ export class MapComponent { //implements OnInit {
 
         console.log("Departure : "+dep_lat+";"+dep_lon);
         console.log("Arrival : "+arr_lat+";"+arr_lon);
-
+        let leVol: number[] = [];
+        leVol.push(dep_lat,dep_lon,arr_lat,arr_lon);
+        lesVols.push(leVol);
 
         // this.addFlight(
         //         dep_lat,
@@ -243,7 +245,34 @@ export class MapComponent { //implements OnInit {
       })
     });
       
-    
+    console.log(lesVols);
+    this.initMap();
+
+    let Paths: (L.Routing.Control | GeodesicLine)[] = [];
+    let Markers: L.Marker<any>[][] = [];
+
+    // lesVols.forEach(vol => {
+      
+    //   //Markers.push(this.newPath(vol[0],vol[1],vol[2],vol[3]))
+    //   //console.log(vol[0],vol[1],vol[2],vol[3]);
+    // })
+
+    let OWNER_ID = id;
+    Markers.push(this.newPath(lesVols[OWNER_ID][0], lesVols[OWNER_ID][1],lesVols[OWNER_ID][2],lesVols[OWNER_ID][3]));
+
+    // Markers.push(this.newPath(42.2, 1.3522, 40.712784, -34.005941));
+
+    Markers.forEach((marker) => {
+      Paths.push(this.addCarPath(marker[0], marker[1]));
+      Paths.push(this.addJetPath(marker[0], marker[1]));
+    });
+
+    this.displayPaths(Paths);
+  }
+
+  async ngOnInit() {
+  
+    this.Initialize(0);
 
     
     // this.listePersonne.forEach((personne) => {
@@ -264,6 +293,12 @@ export class MapComponent { //implements OnInit {
     // });
 
     // this.initAll();
+
+    // document.getElementsByTagName("select")[0].addEventListener("change", function  (event) {
+    //   this.Initialize(document.getElementsByTagName("select")[0].value);
+    // }); 
   }
+
+  
 
 }
