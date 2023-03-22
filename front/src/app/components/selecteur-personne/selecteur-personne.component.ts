@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PersonneService, Personne } from 'src/app/services/personne.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { PersonneService, Personne } from 'src/app/services/personne.service';
   templateUrl: './selecteur-personne.component.html',
   styleUrls: ['./selecteur-personne.component.css']
 })
-export class SelecteurPersonneComponent {
+export class SelecteurPersonneComponent implements OnInit {
   // Récupérer la liste des personnes
   listePersonne : Personne[] = [];
 
@@ -16,8 +16,10 @@ export class SelecteurPersonneComponent {
   ) {}
 
   async ngOnInit() {
-    this.listePersonne = await this.personneService.getListePersonne();
-    console.log("Liste personnes " + this.listePersonne)
+    this.personneService.chargerPersonnes().then(( lp) => {
+      this.listePersonne = lp;
+    });
+
   }
 
   // Lorsqu'un élément de la liste est sélectionné

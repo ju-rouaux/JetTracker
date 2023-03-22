@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +7,12 @@ import {Injectable} from '@angular/core';
 export class PersonneService {
 
   personnes: Personne[] = [];
+  personnes_chargees : boolean = false;
 
   constructor(private http: HttpClient) {
-    this.chargerPersonnes();
+    this.chargerPersonnes().then(personnes => {
+      console.log(`Loaded ${personnes.length} people successfully.`);
+    });
   }
 
   /**
@@ -58,8 +61,6 @@ export class PersonneService {
                 nbHeuresVol += Math.floor(nbHoursMillis / (1000 * 60));
               }
             }
-
-            console.log(nbHeuresVol);
             flights.push(flightData);
           }
         }
@@ -96,18 +97,25 @@ export class PersonneService {
     }
   }
 
-  getListePersonne() {
-    return this.personnes;
+  async getListePersonne(): Promise<Personne[]> {
+    try {
+      const listePersonne = await this.chargerPersonnes();
+      this.personnes = listePersonne;
+      return this.personnes;
+    } catch (error) {
+      console.error('Error while getting list of persons:', error);
+      return [];
+    }
   }
 
 }
 
-interface Jet {
+export interface Jet {
   max_speed: string | null;
   model: string | null;
 }
 
-interface Flight {
+export interface Flight {
   aircraft: {
     modeS: string;
     model: string;
@@ -147,5 +155,13 @@ export class Personne {
     public immatriculation?: string[],
     public vols?: Flight[],
   ) {
+  }
+
+  getVols(){
+    return this.vols;
+  }
+
+  getNom(){
+    return this.nom;
   }
 }

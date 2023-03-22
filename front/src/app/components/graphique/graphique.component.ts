@@ -26,7 +26,7 @@ export class GraphiqueComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.listePersonnes = this.personneService.getListePersonne();
+    this.listePersonnes = await this.personneService.getListePersonne();
     this.createChart();
   }
 
