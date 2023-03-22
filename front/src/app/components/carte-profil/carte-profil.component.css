@@ -11,11 +11,13 @@
     /* box-shadow: 2px -2px 5px 1px #00000073; */
     border-radius: 1rem;
     border: solid 1rem #FF3B4E;
+    background-color: #FF3B4E;
 }
 
 img {
     position: relative;
     width : 100%;
+    border-radius: 1rem;
 }
 
 .texte {
