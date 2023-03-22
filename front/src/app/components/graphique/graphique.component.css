@@ -2,7 +2,8 @@
   height: 50vh;
   /* background-color: #EED454; */
   padding: 2vh;
-  background-color: #ffefa1;
+  background-color: #fff7d0;
+  border: solid 1rem #ffec8d;
   border-radius: 1rem;
 }
 

@@ -85,3 +85,28 @@ h1 {
     font-family: "Amaranth";
     text-align: center;
 }
+
+#titre-carrousel{
+    color:white;
+}
+
+.titre-composant{
+    padding-top: 10vh;
+    padding-bottom: 2vh;
+}
+
+#titre-carte-profil{
+/* surligner le texte, text-bg */
+}
+
+#pied-de-page{
+    background-color: #097046;
+    padding-bottom: 1px; /*Ne s'affiche pas correctement sans cette ligne*/
+    color: white;
+    text-align: center;
+
+}
+
+#pied-de-page a{
+    color: white;
+}
