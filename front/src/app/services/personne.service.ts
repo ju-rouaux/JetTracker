@@ -97,8 +97,15 @@ export class PersonneService {
     }
   }
 
-  getListePersonne(): Personne[] {
-    return this.personnes;
+  async getListePersonne(): Promise<Personne[]> {
+    try {
+      const listePersonne = await this.chargerPersonnes();
+      this.personnes = listePersonne;
+      return this.personnes;
+    } catch (error) {
+      console.error('Error while getting list of persons:', error);
+      return [];
+    }
   }
 
 }
