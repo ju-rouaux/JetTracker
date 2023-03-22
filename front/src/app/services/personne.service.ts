@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +7,7 @@ import {Injectable} from '@angular/core';
 export class PersonneService {
 
   personnes: Personne[] = [];
+  personnes_chargees : boolean = false;
 
   constructor(private http: HttpClient) {
     this.chargerPersonnes().then(personnes => {
@@ -102,12 +103,12 @@ export class PersonneService {
 
 }
 
-interface Jet {
+export interface Jet {
   max_speed: string | null;
   model: string | null;
 }
 
-interface Flight {
+export interface Flight {
   aircraft: {
     modeS: string;
     model: string;
