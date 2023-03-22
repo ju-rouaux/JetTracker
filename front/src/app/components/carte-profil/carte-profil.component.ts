@@ -12,7 +12,7 @@ export class CarteProfilComponent implements OnInit {
 
   // Récupérer la liste des personnes
   async chargerListePersonne(){
-    this.listePersonne = this.personneService.getListePersonne();
+    this.listePersonne = await this.personneService.getListePersonne();
     console.log("Liste personnes : " + this.listePersonne);
   }
 
