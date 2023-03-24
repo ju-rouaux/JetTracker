@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PersonneService, Personne } from 'src/app/services/personne.service';
 
 @Component({
@@ -8,6 +8,9 @@ import { PersonneService, Personne } from 'src/app/services/personne.service';
 })
 export class SelecteurPersonneComponent implements OnInit {
   // Récupérer la liste des personnes
+
+  @Output() selected = new EventEmitter<number>();
+
   listePersonne: Personne[] = [];
 
   constructor(
@@ -23,5 +26,6 @@ export class SelecteurPersonneComponent implements OnInit {
   // Lorsqu'un élément de la liste est sélectionné
   onSelected(idPersStr: string) {
     let id = Number.parseInt(idPersStr);
+    this.selected.emit(id);
   }
 }
