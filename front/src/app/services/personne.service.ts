@@ -131,7 +131,7 @@ export interface Flight {
       lon: number;
     };
     scheduledTimeUtc: string;
-    aeroport : string;
+    airport : string;
   };
   departure: {
     location: {
@@ -139,7 +139,7 @@ export interface Flight {
       lon: number;
     };
     scheduledTimeUtc: string;
-    aeroport : string;
+    airport : string;
   };
   greatCircleDistance?: {
     km: number;
