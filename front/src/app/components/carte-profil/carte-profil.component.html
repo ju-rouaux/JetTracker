@@ -9,7 +9,7 @@
       </div>
       <div class="texte">
         <h1 class="nom">{{ personne.prenom }} {{ personne.nom }}</h1>
-        <p class="consommation">{{ personne.emission }}kg de CO2</p>
+        <p class="consommation">{{ personne.emission | number: '1.2-2' }}kg de CO2</p>
       </div>
     </div>
   </div>
