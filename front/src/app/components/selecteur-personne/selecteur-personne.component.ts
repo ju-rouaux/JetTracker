@@ -21,6 +21,7 @@ export class SelecteurPersonneComponent implements OnInit {
   }
 
   // Lorsqu'un élément de la liste est sélectionné
+  private v: any;
   onSelected(idPersStr: string) {
     let id = Number.parseInt(idPersStr);
   }
