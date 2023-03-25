@@ -97,9 +97,10 @@
 #vol {
     position: absolute;
     height: 25%;
-    aspect-ratio: 3/2;
-    transform: translate(40%, 30%);
+    aspect-ratio: 4/2;
+    transform: translate(15%, 32%);
     text-align: center;
+    font-size: 0.8vw;
     
     /* border: 1px solid pink; */
 }
