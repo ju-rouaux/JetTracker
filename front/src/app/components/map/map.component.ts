@@ -22,7 +22,7 @@ export class MapComponent {
   constructor(
     // Initialiser le PersonneService
     private personneService: PersonneService
-  ) {}
+  ) { }
 
   private map: L.Map;
   private Flight: (L.Routing.Control | GeodesicLine)[] = [];
@@ -31,7 +31,8 @@ export class MapComponent {
   private geodesic_path: L.Geodesic;
   private display_jet: boolean;
   private display_car: boolean;
-
+  
+  // Initialise la carte Leaflet en utilisant les tuiles OpenStreetMap.
   private initMap(): void {
     this.map = L.map('map', {
       minZoom: 0,
@@ -172,6 +173,7 @@ export class MapComponent {
     });
   }
 
+  // Ajouter un nouveau vol en utilisant les coordonnées de départ et d'arrivée
   private addFlight(
     departure_lat: number,
     departure_lng: number,
@@ -179,6 +181,7 @@ export class MapComponent {
     arrival_lng: number
   ): void {
     let marker;
+    // Création d'un nouveau trajet à partir des coordonnées fournies
     marker = this.newPath(
       departure_lat,
       departure_lng,
@@ -186,41 +189,39 @@ export class MapComponent {
       arrival_lng
     );
 
+    // Ajout d'un nouveau trajet en voiture à la liste des vols
     this.Flight.push(this.addCarPath(marker[0], marker[1]));
   }
 
-  private setSelector(): void {
-    let selector = document.getElementById('selector');
-    let select = document.createElement('select');
-  }
-
+  // Initialisation de tous les éléments
   private initAll(): void {
+    // Initialisation de la carte
     this.initMap();
 
+    // Ajout d'un nouveau vol avec des coordonnées spécifiques
     this.addFlight(48.2, 2.3522, 40.712784, -74.005941);
+    // Affichage des trajets
     this.displayPaths(this.Flight);
-    // let Markers = [];
 
-    // Markers.push(this.newPath(48.2, 2.3522, 40.712784, -74.005941));
-    // Markers.push(this.newPath(42.2, 1.3522, 40.712784, -34.005941));
-
-    // this.map.eachLayer((layer) => {
-    //   console.log(layer);
-    // });
-
+    // Affichage des informations de vol dans la console
     this.Flight.forEach((flight) => {
       console.log(flight);
     });
   }
 
+  // Initialisation de la carte avec les données d'une personne spécifique
   public async Initialize(id: number): Promise<void> {
+    // Suppression de la carte si elle existe déjà
     if (this.map) this.map.remove();
 
+    // Affichage des trajets en voiture et en jet
     this.display_car = true;
     this.display_jet = true;
 
+    // Récupération des données de personnes
     var data = await this.personneService.getListePersonne();
 
+    // Définition de l'interface Vol
     interface Vol {
       owner: string;
       departure: { date: string; lat: number; lon: number };
@@ -228,6 +229,7 @@ export class MapComponent {
     }
 
     let lesVols: Vol[] = [];
+    // Parcours des données de personnes pour récupérer les informations de vol
     data.forEach((personne) => {
       personne.vols?.forEach((vol) => {
         let dep_lat = vol?.departure?.location.lat;
@@ -235,9 +237,7 @@ export class MapComponent {
         let arr_lat = vol?.arrival?.location.lat;
         let arr_lon = vol?.arrival?.location.lon;
 
-        console.log('Departure : ' + dep_lat + ';' + dep_lon);
-        console.log('Arrival : ' + arr_lat + ';' + arr_lon);
-
+        // Création d'un objet Vol avec les informations récupérées
         let leVol: Vol = {
           owner: personne.prenom + ' ' + personne.nom,
           departure: {
@@ -251,23 +251,8 @@ export class MapComponent {
           },
         };
 
-        // leVol.push(dep_lat, dep_lon, arr_lat, arr_lon);
+        // Ajout du vol à la liste des vols
         lesVols.push(leVol);
-
-        // this.addFlight(
-        //         dep_lat,
-        //         dep_lon,
-        //         arr_lat,
-        //         arr_lon
-        //       );
-
-        // console.log(vol.departure.location.lat+";"+
-        //   vol.departure.location.lon+"  "+
-        //   vol.arrival.location.lat+";"+
-        //   vol.arrival.location.lon
-        // );
-
-        //console.log(typeof vol.departure.location.lat);
       });
     });
 
@@ -277,13 +262,9 @@ export class MapComponent {
     let Paths: (L.Routing.Control | GeodesicLine)[] = [];
     let Markers: L.Marker<any>[][] = [];
 
-    // lesVols.forEach(vol => {
-
-    //   //Markers.push(this.newPath(vol[0],vol[1],vol[2],vol[3]))
-    //   //console.log(vol[0],vol[1],vol[2],vol[3]);
-    // })
     let OWNER_Name = '';
 
+    // Récupération du nom du propriétaire en fonction de l'ID fourni
     if (id != -1) {
       OWNER_Name =
         document.getElementsByTagName('select')[0].options[id].innerText;
@@ -292,9 +273,11 @@ export class MapComponent {
       OWNER_Name = 'Bill Gates';
     }
 
+    // Filtrage des vols pour ne garder que ceux du propriétaire sélectionné
     let ownerFlight: Vol[];
     ownerFlight = lesVols.filter((vol) => vol.owner === OWNER_Name);
 
+    // Création d'un nouveau trajet pour le premier vol du propriétaire sélectionné
     Markers.push(
       this.newPath(
         ownerFlight[0]['departure']['lat'],
@@ -304,62 +287,24 @@ export class MapComponent {
       )
     );
 
-    console.log('lesVols de _' + OWNER_Name + '_ : ');
-    console.log(lesVols.filter((vol) => vol.owner === OWNER_Name)[0]);
-
-    console.log('ownerFlight : ');
-    console.log(
-      ownerFlight.sort((a, b) => {
-        if (a.departure.date < b.departure.date) {
-          return -1;
-        }
-        if (a.departure.date > b.departure.date) {
-          return 1;
-        }
-        return 0;
-      })
-    );
-
-    // Markers.push(this.newPath(42.2, 1.3522, 40.712784, -34.005941));
-
+    // Parcours des vols du propriétaire sélectionné
     Markers.forEach((marker) => {
       Paths.push(this.addCarPath(marker[0], marker[1]));
       Paths.push(this.addJetPath(marker[0], marker[1]));
     });
 
+    // Affichage des trajets
     this.displayPaths(Paths);
   }
 
+  // Lorsque la page est chargée 
   async ngOnInit() {
     this.Initialize(-1);
-
-    // this.listePersonne.forEach((personne) => {
-    //   personne.vols?.forEach((vol) => {
-    //     this.addFlight(
-    //       vol.departure.location.lat,
-    //       vol.departure.location.lon,
-    //       vol.arrival.location.lat,
-    //       vol.arrival.location.lon
-    //     );
-
-    //     console.log(vol.departure.location.lat+";"+
-    //       vol.departure.location.lon+"  "+
-    //       vol.arrival.location.lat+";"+
-    //       vol.arrival.location.lon
-    //     );
-    //   });
-    // });
-
-    // this.initAll();
-
-    // document.getElementsByTagName("select")[0].addEventListener("change", function  (event) {
-    //   this.Initialize(document.getElementsByTagName("select")[0].value);
-    // });
   }
 
+  // Lorsque l'utilisateur sélectionne un propriétaire dans la liste déroulante
   onSelected(value: number) {
-    //alert("Button clicked "+value);
-    // Do something with the value
+    // Initialisation de la carte avec les données du propriétaire sélectionné
     this.Initialize(value);
   }
 }
