@@ -7,7 +7,7 @@ import {Injectable, OnInit} from '@angular/core';
 export class PersonneService {
 
   personnes: Personne[] = [];
-  personnes_chargees : boolean = false;
+  personnes_chargees: boolean = false;
 
   constructor(private http: HttpClient) {
     this.chargerPersonnes().then(personnes => {
@@ -70,7 +70,6 @@ export class PersonneService {
         const nom = nameParts.slice(1).join(' ');
         const existingPersonne = this.personnes.find(p => p.prenom === prenom && p.nom === nom);
         if (existingPersonne) {
-          console.log("old emission :" + existingPersonne.emission);
           // @ts-ignore
           existingPersonne.emission += co2;
           // @ts-ignore
@@ -130,6 +129,8 @@ export interface Flight {
       lat: number;
       lon: number;
     };
+    scheduledTimeUtc: string;
+    airport: string;
   };
   departure: {
     location: {
@@ -137,6 +138,7 @@ export interface Flight {
       lon: number;
     };
     scheduledTimeUtc: string;
+    airport: string;
   };
   greatCircleDistance?: {
     km: number;
