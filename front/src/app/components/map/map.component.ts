@@ -31,7 +31,7 @@ export class MapComponent {
   private geodesic_path: L.Geodesic;
   private display_jet: boolean;
   private display_car: boolean;
-  
+
   // Initialise la carte Leaflet en utilisant les tuiles OpenStreetMap.
   private initMap(): void {
     this.map = L.map('map', {
@@ -92,10 +92,11 @@ export class MapComponent {
   ): L.Routing.Control {
     return L.Routing.control({
       waypoints: [departure_coord.getLatLng(), arrival_coord.getLatLng()],
-      routeWhileDragging: false,
+      draggableWaypoints: false,
       addWaypoints: false,
-    });
+    }as any);
   }
+
 
   // Méthode appelé quand une checkbox change d'état
   public toggleCheckbox(event: any) {
@@ -297,7 +298,7 @@ export class MapComponent {
     this.displayPaths(Paths);
   }
 
-  // Lorsque la page est chargée 
+  // Lorsque la page est chargée
   async ngOnInit() {
     this.Initialize(-1);
   }
@@ -307,4 +308,6 @@ export class MapComponent {
     // Initialisation de la carte avec les données du propriétaire sélectionné
     this.Initialize(value);
   }
+
+
 }
