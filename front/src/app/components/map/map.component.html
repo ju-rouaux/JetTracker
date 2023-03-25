@@ -6,7 +6,7 @@
 <div class="container">
   <div id="map-container">
     <div id="head">
-      <app-selecteur-personne></app-selecteur-personne>
+      <app-selecteur-personne (selected)="onSelected($event)"></app-selecteur-personne>
 
       <!-- <p>Moyen de transport :</p>
 
