@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { icon, Marker } from 'leaflet';
-import { PersonneService, Personne, Flight } from 'src/app/services/personne.service';
+import {
+  PersonneService,
+  Personne,
+  Flight,
+} from 'src/app/services/personne.service';
 
 import 'leaflet-routing-machine';
 import 'leaflet.geodesic';
@@ -12,17 +16,13 @@ import { GeodesicLine } from 'leaflet.geodesic';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
 })
-
-
-
 export class MapComponent {
   [x: string]: any;
-
 
   constructor(
     // Initialiser le PersonneService
     private personneService: PersonneService
-  ) { }
+  ) {}
 
   private map: L.Map;
   private Flight: (L.Routing.Control | GeodesicLine)[] = [];
@@ -134,23 +134,19 @@ export class MapComponent {
   ): L.Marker[] {
     let markers: L.Marker[] = [];
 
-    let markerA: L.Marker = L.marker([departure_lat, departure_lng], { draggable: false }).addTo(
-      this.map
-    )
+    let markerA: L.Marker = L.marker([departure_lat, departure_lng], {
+      draggable: false,
+    }).addTo(this.map);
     markerA.dragging?.disable();
 
-
-    let markerB: L.Marker = L.marker([arrival_lat, arrival_lng], { draggable: false }).addTo(this.map)
+    let markerB: L.Marker = L.marker([arrival_lat, arrival_lng], {
+      draggable: false,
+    }).addTo(this.map);
     markerB.dragging?.disable();
 
+    markers.push(markerA);
 
-    markers.push(
-      markerA
-    );
-
-    markers.push(
-      markerB
-    );
+    markers.push(markerB);
 
     return markers;
   }
@@ -212,15 +208,13 @@ export class MapComponent {
     //   console.log(layer);
     // });
 
-
     this.Flight.forEach((flight) => {
       console.log(flight);
     });
   }
 
   public async Initialize(id: number): Promise<void> {
-    if (this.map)
-      this.map.remove();
+    if (this.map) this.map.remove();
 
     this.display_car = true;
     this.display_jet = true;
@@ -233,33 +227,30 @@ export class MapComponent {
       arrival: { lat: number; lon: number };
     }
 
-
     let lesVols: Vol[] = [];
     data.forEach((personne) => {
       personne.vols?.forEach((vol) => {
-
         let dep_lat = vol?.departure?.location.lat;
         let dep_lon = vol?.departure?.location.lon;
         let arr_lat = vol?.arrival?.location.lat;
-        let arr_lon = vol?.arrival?.location.lon
+        let arr_lon = vol?.arrival?.location.lon;
 
-        console.log("Departure : " + dep_lat + ";" + dep_lon);
-        console.log("Arrival : " + arr_lat + ";" + arr_lon);
-        
+        console.log('Departure : ' + dep_lat + ';' + dep_lon);
+        console.log('Arrival : ' + arr_lat + ';' + arr_lon);
+
         let leVol: Vol = {
-          owner: personne.prenom + " " + personne.nom,
+          owner: personne.prenom + ' ' + personne.nom,
           departure: {
-            date : vol.departure.scheduledTimeUtc,
+            date: vol.departure.scheduledTimeUtc,
             lat: dep_lat,
-            lon: dep_lon
+            lon: dep_lon,
           },
           arrival: {
             lat: arr_lat,
-            lon: arr_lon
-          }
-        }
+            lon: arr_lon,
+          },
+        };
 
-    
         // leVol.push(dep_lat, dep_lon, arr_lat, arr_lon);
         lesVols.push(leVol);
 
@@ -277,7 +268,7 @@ export class MapComponent {
         // );
 
         //console.log(typeof vol.departure.location.lat);
-      })
+      });
     });
 
     console.log(lesVols);
@@ -291,31 +282,44 @@ export class MapComponent {
     //   //Markers.push(this.newPath(vol[0],vol[1],vol[2],vol[3]))
     //   //console.log(vol[0],vol[1],vol[2],vol[3]);
     // })
+    let OWNER_Name = '';
 
-    let OWNER_Name = document.getElementsByTagName('select')[0].options[id].innerText;
-    OWNER_Name = OWNER_Name.substring(1, OWNER_Name.length - 1);
+    if (id != -1) {
+      OWNER_Name =
+        document.getElementsByTagName('select')[0].options[id].innerText;
+      OWNER_Name = OWNER_Name.substring(1, OWNER_Name.length - 1);
+    } else {
+      OWNER_Name = 'Bill Gates';
+    }
 
-    let ownerFlight: Vol[]
-    ownerFlight = lesVols.filter((vol) => vol.owner === OWNER_Name)
-    
+    let ownerFlight: Vol[];
+    ownerFlight = lesVols.filter((vol) => vol.owner === OWNER_Name);
 
+    Markers.push(
+      this.newPath(
+        ownerFlight[0]['departure']['lat'],
+        ownerFlight[0]['departure']['lon'],
+        ownerFlight[0]['arrival']['lat'],
+        ownerFlight[0]['arrival']['lon']
+      )
+    );
 
-    //Markers.push(this.newPath(lesVols[OWNER_ID][0], lesVols[OWNER_ID][1], lesVols[OWNER_ID][2], lesVols[OWNER_ID][3]));
-    console.log("lesVols de _"+OWNER_Name+"_ : ");
+    console.log('lesVols de _' + OWNER_Name + '_ : ');
     console.log(lesVols.filter((vol) => vol.owner === OWNER_Name)[0]);
 
-
-    console.log("ownerFlight : ");
-    console.log(ownerFlight.sort((a, b) => {
-      if (a.departure.date < b.departure.date) {
+    console.log('ownerFlight : ');
+    console.log(
+      ownerFlight.sort((a, b) => {
+        if (a.departure.date < b.departure.date) {
           return -1;
-      }
-      if (a.departure.date > b.departure.date) {
+        }
+        if (a.departure.date > b.departure.date) {
           return 1;
-      }
-      return 0;
-  }));
-    
+        }
+        return 0;
+      })
+    );
+
     // Markers.push(this.newPath(42.2, 1.3522, 40.712784, -34.005941));
 
     Markers.forEach((marker) => {
@@ -327,16 +331,14 @@ export class MapComponent {
   }
 
   async ngOnInit() {
-
-    this.Initialize(0);
-
+    this.Initialize(-1);
 
     // this.listePersonne.forEach((personne) => {
     //   personne.vols?.forEach((vol) => {
     //     this.addFlight(
     //       vol.departure.location.lat,
     //       vol.departure.location.lon,
-    //       vol.arrival.location.lat,  
+    //       vol.arrival.location.lat,
     //       vol.arrival.location.lon
     //     );
 
@@ -352,7 +354,7 @@ export class MapComponent {
 
     // document.getElementsByTagName("select")[0].addEventListener("change", function  (event) {
     //   this.Initialize(document.getElementsByTagName("select")[0].value);
-    // }); 
+    // });
   }
 
   onSelected(value: number) {
@@ -360,6 +362,4 @@ export class MapComponent {
     // Do something with the value
     this.Initialize(value);
   }
-
 }
-
