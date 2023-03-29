@@ -21,7 +21,6 @@ cd ./JetTracker/front
 
 ```
 npm i
-
 ```
 
 
@@ -33,7 +32,7 @@ ng serve
 ```
 
 
-# Informations
+# Informations :
 
-Pour des raisons d'accessibilaté, nous avons mis le json correspondant à la base firebase car sinon il faut demarrer un serveur express et modifier l'ip si nécéssaire dans le service personne
+Pour des raisons d'accessibilité, nous avons mis le json correspondant à la base Firebase, car sinon il faut démarrer un serveur express et modifier l'ip si nécessaire dans le service personne.
 
