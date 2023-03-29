@@ -24,6 +24,8 @@ export class PersonneService {
   async chargerPersonnes(): Promise<Personne[]> {
     try {
       const jsonData = await this.http.get<any>('/assets/parse.json').toPromise();
+      // On peut utiliser un serveur express en mettant l'ip ci-dessous
+      // const jsonData = await this.http.get<any>('192.168.1.51');
       for (const personneKey of Object.keys(jsonData)) {
         const data = jsonData[personneKey];
         const jets: Jet[] = [];
