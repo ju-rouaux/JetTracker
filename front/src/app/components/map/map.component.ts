@@ -1,75 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+// Import des modules nécessaires
+import {Component, OnInit} from '@angular/core';
 import * as L from 'leaflet';
-import { icon, Marker } from 'leaflet';
-import {
-  PersonneService,
-  Personne,
-  Flight,
-} from 'src/app/services/personne.service';
-
+import {icon, Marker} from 'leaflet';
+import {PersonneService} from 'src/app/services/personne.service';
 import 'leaflet-routing-machine';
 import 'leaflet.geodesic';
-import { GeodesicLine } from 'leaflet.geodesic';
+import {GeodesicLine} from 'leaflet.geodesic';
 
+// Définition du composant Angular
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css'],
+  styleUrls: ['./map.component.css']
 })
-export class MapComponent {
+
+// Définition de la classe du composant
+export class MapComponent implements OnInit {
   [x: string]: any;
 
-  constructor(
-    // Initialiser le PersonneService
-    private personneService: PersonneService
-  ) { }
-
+// Déclaration des propriétés de la classe
   private map: L.Map;
-  private Flight: (L.Routing.Control | GeodesicLine)[] = [];
-  private departure_coord: L.Marker;
-  private arrival_coord: L.Marker;
-  private geodesic_path: L.Geodesic;
   private display_jet: boolean;
   private display_car: boolean;
 
-  // Initialise la carte Leaflet en utilisant les tuiles OpenStreetMap.
-  private initMap(): void {
-    this.map = L.map('map', {
-      minZoom: 0,
-      scrollWheelZoom: false,
-    });
-
-    const tiles = L.tileLayer(
-      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      {
-        maxZoom: 18,
-        minZoom: 3,
-      }
-    );
-
-    const iconDefault = icon({
-      iconRetinaUrl:
-        'https://unpkg.com/leaflet@1.2.0/dist/images/marker-icon-2x.png',
-      iconUrl: 'https://unpkg.com/leaflet@1.2.0/dist/images/marker-icon-2x.png',
-      shadowUrl: '',
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      tooltipAnchor: [16, -28],
-      shadowSize: [41, 41],
-    });
-
-    Marker.prototype.options.icon = iconDefault;
-
-    tiles.addTo(this.map);
+  constructor(
+// Initialiser le PersonneService
+private personneService: PersonneService
+  ) {
   }
 
-  // Centre la vu de la carte sur un marker TODO a revoir pour utiliser peut-être des coordonnées
-  public centerView(marker: L.Marker): void {
-    this.map.setView(marker.getLatLng(), 5);
-  }
-
-  // Créer un nouveau trajet en Jet a partir de deux marker (départ et arrivée)
+  // Créer un nouveau trajet en Jet à partir de deux marqueurs (départ et arrivée)
   public addJetPath(
     departure_coord: L.Marker,
     arrival_coord: L.Marker
@@ -85,7 +45,7 @@ export class MapComponent {
     );
   }
 
-  // Créer un nouveau trajet en Voiture a partir de deux marker (départ et arrivée)
+  // Créer un nouveau trajet en Voiture à partir de deux marqueurs (départ et arrivée)
   public addCarPath(
     departure_coord: L.Marker,
     arrival_coord: L.Marker
@@ -94,40 +54,10 @@ export class MapComponent {
       waypoints: [departure_coord.getLatLng(), arrival_coord.getLatLng()],
       draggableWaypoints: false,
       addWaypoints: false,
-    }as any);
+    } as any);
   }
 
-
-  // Méthode appelé quand une checkbox change d'état
-  public toggleCheckbox(event: any) {
-    if (event.target.checked) {
-      // Si la checkbox est coché
-      switch (event.target.id) {
-        case 'voiture-checkbox':
-          this.display_car = true;
-          break;
-        case 'jet-checkbox':
-          this.display_jet = true;
-          break;
-      }
-    } else {
-      // Si la checkbox est décoché
-      switch (event.target.id) {
-        case 'voiture-checkbox':
-          this.display_car = false;
-          break;
-        case 'jet-checkbox':
-          this.display_jet = false;
-          break;
-      }
-    }
-
-    this.initAll();
-    // do something else based on the checkbox status
-  }
-
-  // Créer un nouveau trajet sous forme de deux marker
-  // a partir de coordonnées passé en paramètre
+// a partir de coordonnées passé en paramètre
   public newPath(
     departure_lat: number,
     departure_lng: number,
@@ -136,93 +66,41 @@ export class MapComponent {
   ): L.Marker[] {
     let markers: L.Marker[] = [];
 
+// Création d'un marker A à partir des coordonnées de départ
     let markerA: L.Marker = L.marker([departure_lat, departure_lng], {
       draggable: false,
     }).addTo(this.map);
     markerA.dragging?.disable();
 
+// Création d'un marker B à partir des coordonnées d'arrivée
     let markerB: L.Marker = L.marker([arrival_lat, arrival_lng], {
       draggable: false,
     }).addTo(this.map);
     markerB.dragging?.disable();
 
+// Ajout des deux markers au tableau de markers
     markers.push(markerA);
-
     markers.push(markerB);
 
+// Retourne le tableau de markers
     return markers;
   }
 
-  // Affiche tout les trajet passé en paramètre
-  private displayPaths(FlightArray: (L.Routing.Control | L.Geodesic)[]): void {
-    FlightArray.forEach((Flight) => {
-      if (Flight instanceof L.Routing.Control) {
-        if (this.display_car) {
-          Flight.addTo(this.map);
-        }
-      } else if (Flight instanceof L.Geodesic) {
-        if (this.display_jet) {
-          Flight.addTo(this.map);
-        }
-      }
-
-      if (Flight instanceof L.Routing.Control)
-        if (document.getElementsByClassName('leaflet-top leaflet-right')[0])
-          document
-            .getElementsByClassName('leaflet-top leaflet-right')[0]
-            .remove();
-    });
-  }
-
-  // Ajouter un nouveau vol en utilisant les coordonnées de départ et d'arrivée
-  private addFlight(
-    departure_lat: number,
-    departure_lng: number,
-    arrival_lat: number,
-    arrival_lng: number
-  ): void {
-    let marker;
-    // Création d'un nouveau trajet à partir des coordonnées fournies
-    marker = this.newPath(
-      departure_lat,
-      departure_lng,
-      arrival_lat,
-      arrival_lng
-    );
-
-    // Ajout d'un nouveau trajet en voiture à la liste des vols
-    this.Flight.push(this.addCarPath(marker[0], marker[1]));
-  }
-
-  // Initialisation de tous les éléments
-  private initAll(): void {
-    // Initialisation de la carte
-    this.initMap();
-
-    // Ajout d'un nouveau vol avec des coordonnées spécifiques
-    this.addFlight(48.2, 2.3522, 40.712784, -74.005941);
-    // Affichage des trajets
-    this.displayPaths(this.Flight);
-
-    // Affichage des informations de vol dans la console
-    this.Flight.forEach((flight) => {
-      console.log(flight);
-    });
-  }
+// Créer un nouveau trajet sous forme de deux marker
 
   // Initialisation de la carte avec les données d'une personne spécifique
   public async Initialize(id: number): Promise<void> {
-    // Suppression de la carte si elle existe déjà
+// Suppression de la carte si elle existe déjà
     if (this.map) this.map.remove();
 
-    // Affichage des trajets en voiture et en jet
+// Affichage des trajets en voiture et en jet
     this.display_car = true;
     this.display_jet = true;
 
-    // Récupération des données de personnes
-    var data = await this.personneService.getListePersonne();
+// Récupération des données de personnes
+    let data = await this.personneService.getListePersonne();
 
-    // Définition de l'interface Vol
+// Définition de l'interface Vol
     interface Vol {
       owner: string;
       departure: { date: string; lat: number; lon: number };
@@ -230,7 +108,8 @@ export class MapComponent {
     }
 
     let lesVols: Vol[] = [];
-    // Parcours des données de personnes pour récupérer les informations de vol
+
+// Parcours des données de personnes pour récupérer les informations de vol
     data.forEach((personne) => {
       personne.vols?.forEach((vol) => {
         let dep_lat = vol?.departure?.location.lat;
@@ -261,7 +140,7 @@ export class MapComponent {
     this.initMap();
 
     let Paths: (L.Routing.Control | GeodesicLine)[] = [];
-    let Markers: L.Marker<any>[][] = [];
+    let Markers: L.Marker[][] = [];
 
     let OWNER_Name = '';
 
@@ -300,13 +179,73 @@ export class MapComponent {
 
   // Lorsque la page est chargée
   async ngOnInit() {
-    this.Initialize(-1);
+    await this.Initialize(-1);
   }
 
   // Lorsque l'utilisateur sélectionne un propriétaire dans la liste déroulante
-  onSelected(value: number) {
+  async onSelected(value: number) {
     // Initialisation de la carte avec les données du propriétaire sélectionné
-    this.Initialize(value);
+    await this.Initialize(value);
+  }
+
+// Initialise la carte Leaflet en utilisant les tuiles OpenStreetMap.
+  private initMap(): void {
+// Initialisation de la carte
+    this.map = L.map('map', {
+      minZoom: 0,
+      scrollWheelZoom: false,
+    });
+
+    // Ajout des tuiles OpenStreetMap
+    const tiles = L.tileLayer(
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {
+        maxZoom: 18,
+        minZoom: 3,
+      }
+    );
+
+// Définition de l'icône par défaut pour les marqueurs
+    const iconDefault = icon({
+      iconRetinaUrl:
+        'https://unpkg.com/leaflet@1.2.0/dist/images/marker-icon-2x.png',
+      iconUrl: 'https://unpkg.com/leaflet@1.2.0/dist/images/marker-icon-2x.png',
+      shadowUrl: '',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      tooltipAnchor: [16, -28],
+      shadowSize: [41, 41],
+    });
+
+    Marker.prototype.options.icon = iconDefault;
+
+// Ajout des tuiles à la carte
+    tiles.addTo(this.map);
+  }
+
+  // Affiche tout les trajet passé en paramètre
+  private displayPaths(FlightArray: (L.Routing.Control | L.Geodesic)[]): void {
+    FlightArray.forEach((Flight) => {
+      if (Flight instanceof L.Routing.Control) {
+// Affichage du trajet en voiture si la variable display_car est true
+        if (this.display_car) {
+          Flight.addTo(this.map);
+        }
+      } else if (Flight instanceof L.Geodesic) {
+// Affichage du trajet en jet si la variable display_jet est true
+        if (this.display_jet) {
+          Flight.addTo(this.map);
+        }
+      }
+
+      // Suppression de la boîte de dialogue pour les instructions de trajet
+      if (Flight instanceof L.Routing.Control)
+        if (document.getElementsByClassName('leaflet-top leaflet-right')[0])
+          document
+            .getElementsByClassName('leaflet-top leaflet-right')[0]
+            .remove();
+    });
   }
 
 

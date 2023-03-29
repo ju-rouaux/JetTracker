@@ -34,16 +34,18 @@ export class BoardingPassComponent implements OnInit {
         this.derniers_vols();
     }
 
+    // Récupérer la liste des personnes au moment de l'initialisation du composant
     async ngOnInit() {
         await this.chargerListePersonne();
     }
 
+    // Récupérer les vols des personnes
     derniers_vols() {
         //let vols : Array<Flight> = new Array<Flight>();
         let personnes : Array<Personne> = new Array<Personne>();
 
-        let vols : Array<{personne : Personne, vol : Flight}> = new Array<{personne : Personne, vol : Flight}>();
-    
+        let vols : Array<{personne : Personne, vol : Flight}> = new Array<{personne : Personne, vol : Flight}>(); // Créer un tableau d'objets contenant une personne et un vol
+
         //Créer une liste des vols
         this.listePersonne.forEach(p => {
             p.vols?.forEach(vol => {
@@ -58,7 +60,7 @@ export class BoardingPassComponent implements OnInit {
         console.log(vols);
         //Trier les vols du plus ancien au plus récent
         vols = vols.sort((a, b) => {
-            return new Date(a.vol.departure.scheduledTimeUtc) < new Date(b.vol.departure.scheduledTimeUtc) ? 1 : -1;
+            return new Date(a.vol.departure.scheduledTimeUtc) < new Date(b.vol.departure.scheduledTimeUtc) ? 1 : -1; // Si la date de départ du vol a est plus récente que celle du vol b, on inverse les deux
         });
 
 
@@ -70,14 +72,15 @@ export class BoardingPassComponent implements OnInit {
         this.immatriculation = vol.aircraft.model;
         this.depart_aeroport  = vol.departure.airport;
         d = new Date(vol.departure.scheduledTimeUtc)
-        this.depart_heure  = this.formatNumber(d.getHours()) + "h" + this.formatNumber(d.getMinutes());
-        this.depart_date = this.formatNumber(d.getDay()) + "/" + this.formatNumber(d.getMonth()) + "/" + this.formatNumber(d.getFullYear());
+        this.depart_heure  = this.formatNumber(d.getHours()) + "h" + this.formatNumber(d.getMinutes()); // Formatte l'heure pour qu'elle ait toujours 2 chiffres
+        this.depart_date = this.formatNumber(d.getDay()) + "/" + this.formatNumber(d.getMonth()) + "/" + this.formatNumber(d.getFullYear()); // Formatte la date pour qu'elle ait toujours 2 chiffres
         this.arrivee_aeroport = vol.arrival.airport;
         d = new Date(vol.arrival.scheduledTimeUtc)
         this.arrivee_heure = this.formatNumber(d.getHours()) + "h" + this.formatNumber(d.getMinutes());
         this.arrivee_date = this.formatNumber(d.getDay()) + "/" + this.formatNumber(d.getMonth()) + "/" + this.formatNumber(d.getFullYear());
     }
 
+    // Formatte un nombre pour qu'il ait toujours 2 chiffres
     formatNumber(num : number) {
         return num.toLocaleString('fr-FR', {
             minimumIntegerDigits: 2,

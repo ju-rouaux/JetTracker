@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { PersonneService, Personne } from 'src/app/services/personne.service';
+import {Component, OnInit} from '@angular/core';
+import {Personne, PersonneService} from 'src/app/services/personne.service';
 
 @Component({
   selector: 'app-carte-profil',
@@ -8,20 +8,21 @@ import { PersonneService, Personne } from 'src/app/services/personne.service';
 })
 export class CarteProfilComponent implements OnInit {
 
-  listePersonne: Personne[] = [];
-
-  // Récupérer la liste des personnes
-  async chargerListePersonne(){
-    this.listePersonne = await this.personneService.getListePersonne();
-    console.log("Liste personnes : " + this.listePersonne);
-  }
+  listePersonne: Personne[] = []; // une propriété qui contiendra la liste des personnes récupérées depuis le service
 
   constructor(
-    // Initialiser le PersonneService
-    private personneService: PersonneService
-  ) {}
+// initialisation du service "PersonneService"
+private personneService: PersonneService
+  ) {
+  }
+
+// fonction pour récupérer la liste des personnes depuis le service
+  async chargerListePersonne() {
+    this.listePersonne = await this.personneService.getListePersonne(); // appel à la méthode getListePersonne() du service pour récupérer la liste
+    console.log("Liste personnes : " + this.listePersonne); // affichage de la liste des personnes dans la console
+  }
 
   async ngOnInit() {
-    await this.chargerListePersonne();
+    await this.chargerListePersonne(); // appel à la fonction chargerListePersonne() pour récupérer la liste des personnes au moment de l'initialisation du composant
   }
 }

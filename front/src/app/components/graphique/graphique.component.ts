@@ -10,12 +10,15 @@ import {Personne, PersonneService} from 'src/app/services/personne.service';
 export class GraphiqueComponent implements OnInit {
   listePersonnes: Personne[] = [];
 
+// Liste des personnes sélectionnées
   listePersonnesSelectionnees: Personne[] = [];
-  selectedLabels: number[] = [0, 1, 2]; // initialize with all labels selected
 
+// Labels sélectionnés par défaut (tous les labels)
+  selectedLabels: number[] = [0, 1, 2];
 
   chart: any;
 
+  // Option de label
   labelOptions = [
     {label: "Temps de vol", datasetIndex: 0},
     {label: 'Distance parcourue', datasetIndex: 1},
@@ -26,11 +29,14 @@ export class GraphiqueComponent implements OnInit {
   }
 
   async ngOnInit() {
+// Récupérer la liste des personnes depuis le service
     this.listePersonnes = await this.personneService.getListePersonne();
+// Créer le graphique
     this.createChart();
   }
 
   createChart() {
+// Créer une nouvelle instance de chart.js avec les données initiales
     this.chart = new Chart('monGraphique', {
       type: 'bar',
       data: {
@@ -59,7 +65,7 @@ export class GraphiqueComponent implements OnInit {
           legend: {
             labels: {
               font: {
-                size: 16 // change the font size to your desired value
+                size: 16 // changer la taille de police à la valeur désirée
               }
             }
           },
@@ -68,12 +74,8 @@ export class GraphiqueComponent implements OnInit {
     });
   }
 
-  onCheckboxChange(event
-                     :
-                     any, i
-                     :
-                     number
-  ) {
+  onCheckboxChange(event: any, i: number) {
+// Mettre à jour la liste des personnes sélectionnées en fonction de la case cochée ou non
     if (event.target.checked) {
       this.listePersonnesSelectionnees.push(this.listePersonnes[i]);
     } else {
@@ -84,13 +86,17 @@ export class GraphiqueComponent implements OnInit {
         this.listePersonnesSelectionnees.splice(index, 1);
       }
     }
+// Mettre à jour le graphique en conséquence
     this.updateChart();
   }
 
+
   updateChart() {
+    // Pour chaque dataset du graphique, cacher ou afficher en fonction des options de labels sélectionnées
     this.chart.data.datasets.forEach((dataset: any, index: number) => {
       dataset.hidden = !this.selectedLabels.includes(index);
       dataset.data = this.listePersonnesSelectionnees.map((personne) => {
+        // Récupérer les données correspondantes en fonction de l'index de dataset
         switch (index) {
           case 0:
             return personne.nbHeuresVol;
@@ -103,27 +109,30 @@ export class GraphiqueComponent implements OnInit {
         }
       });
     });
+    // Mettre à jour les labels du graphique en fonction des personnes sélectionnées
     this.chart.data.labels = this.listePersonnesSelectionnees.map(
       (personne) => personne.prenom + ' ' + personne.nom
     );
+    // Mettre à jour le graphique avec les nouvelles données
     this.chart.update();
   }
 
 
-  onLabelChange(event
-                  :
-                  any
-  ) {
+  onLabelChange(event: any) {
     const value = parseInt(event.target.value);
     if (event.target.checked) {
+      // Ajouter l'option de label sélectionnée
       this.selectedLabels.push(value);
     } else {
+      // Retirer l'option de label désélectionnée
       const index = this.selectedLabels.indexOf(value);
       if (index >= 0) {
         this.selectedLabels.splice(index, 1);
       }
     }
+    // Mettre à jour le graphique avec les nouvelles options de labels sélectionnées
     this.updateChart();
   }
+
 
 }
